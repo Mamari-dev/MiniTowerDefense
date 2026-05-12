@@ -39,7 +39,6 @@ public class MapManager : MonoBehaviour
         if (blockedTiles.ContainsKey(pos) && blockedTiles.TryGetValue(pos, out GameTileStruct datas))
             return datas.isPath;
 
-        Debug.Log("No Datas (Path) found in Dictionary");
         return true;
     }
 }

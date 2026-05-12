@@ -8,10 +8,12 @@ public class Pathfinding : MonoBehaviour
     [SerializeField] private LineRenderer lineRenderer;
     private Vector3Int startTilePos;
     private Vector3Int endTilePos;
-    private List<Vector3Int> currentPath;
+    private List<Vector3Int> currentPath = new();
 
     private void Start()
     {
+        MouseClick.OnClick = CheckPath;
+
         FindStartAndEndTilePos();
         FindPath();
     }
@@ -35,6 +37,8 @@ public class Pathfinding : MonoBehaviour
 
     private void FindPath()
     {
+        currentPath.Clear();
+
         List<PathNode> openList = new();
         HashSet<Vector3Int> closedList = new();
 
@@ -177,16 +181,18 @@ public class Pathfinding : MonoBehaviour
         }
     }
 
+    private bool CheckPath()
+    {
+        FindPath();
+
+        if (currentPath.Count == 0)
+            return false;
+
+        return true;
+    }
+
     public List<Vector3Int> GetPath()
     {
         return currentPath;
-    }
-
-    [ContextMenu("Test Pathfinding")]
-    public void TestPath()
-    {
-        FindStartAndEndTilePos(); // Erst die Punkte finden
-        FindPath();            // Dann berechnen
-                               // Durch OnDrawGizmos wird er jetzt sofort in der Scene-Ansicht erscheinen!
     }
 }
