@@ -18,13 +18,18 @@ public class MouseClick : MonoBehaviour
         Vector3Int gridPos = buildTileMap.WorldToCell(mouseWorldPos);
         GameTiles clickedTile = buildTileMap.GetTile<GameTiles>(gridPos);
 
-        if (clickedTile != null && !MapManager.Instance.IsTileBlocked(gridPos))
+        if (clickedTile != null && clickedTile.TileStruct.isBuildable && MapManager.Instance.IsTileBuildableBlocked(gridPos))
         {
             Vector3 spawnPos = buildTileMap.GetCellCenterWorld(gridPos);
             GameObject newTower = Instantiate(towerPrefab);
             newTower.transform.position = spawnPos;
 
-            MapManager.Instance.BlockTile(gridPos);
+            GameTileStruct data = new GameTileStruct
+            {
+                isBuildable = false,
+                isPath = false,
+            };
+            MapManager.Instance.BlockTile(gridPos, data);
         }
         else
             Debug.Log($"fail: {clickedTile}");

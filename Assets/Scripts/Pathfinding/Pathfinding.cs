@@ -135,7 +135,7 @@ public class Pathfinding : MonoBehaviour
         {
             Vector3Int neighborPos = currentPos + offset;
             GameTiles tile = tileMap.GetTile<GameTiles>(neighborPos);
-            if (tile != null && tile.IsPath && !MapManager.Instance.IsTileBlocked(neighborPos))
+            if (tile != null && tile.TileStruct.isPath && MapManager.Instance.IsTilePathBlocked(neighborPos))
                 neighbors.Add(neighborPos);
         }
 

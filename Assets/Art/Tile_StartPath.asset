@@ -34,7 +34,8 @@ MonoBehaviour:
   m_InstancedGameObject: {fileID: 4024358249136158278, guid: 307c7d370dc5f5147a62da9893af752a, type: 3}
   m_Flags: 1
   m_ColliderType: 1
-  isBuildable: 0
-  isPath: 1
+  tileStruct:
+    isPath: 1
+    isBuildable: 0
   startTile: 1
   endTile: 0
