@@ -29,7 +29,10 @@ public class Pathfinding : MonoBehaviour
             if (tile == null)
                 continue;
             if (tile.StartTile)
+            {
                 startTilePos = pos;
+                MapManager.Instance.StartTilePos = tileMap.CellToWorld(pos);
+            }
             if (tile.EndTile)
                 endTilePos = pos;
         }
@@ -159,7 +162,19 @@ public class Pathfinding : MonoBehaviour
 
         path.Add(startNode.position);
         path.Reverse();
+        CalculateWorldPath(path);
         return path;
+    }
+
+    private void CalculateWorldPath(List<Vector3Int> path)
+    {
+        List<Vector3> worldPath = new();
+        for (int i = 0; i < path.Count; i++)
+        {
+            Vector3 worldPos = tileMap.CellToWorld(path[i]);
+            worldPath.Add(worldPos);
+        }
+        MapManager.Instance.CurrentWorldPath = worldPath;
     }
 
     private void DrawPath()

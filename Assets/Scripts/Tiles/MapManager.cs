@@ -7,6 +7,12 @@ public class MapManager : MonoBehaviour
 
     private Dictionary<Vector3Int, GameTileStruct> blockedTiles = new();
 
+    private Vector3 startTilePos;
+    public Vector3 StartTilePos { get => startTilePos; set => startTilePos = value; }
+
+    private List<Vector3> currentWorldPath = new();
+    public List<Vector3> CurrentWorldPath { get => currentWorldPath; set => currentWorldPath = value; }
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
