@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Tower_SingleAttack : Tower
+public class BaseTower : Tower
 {
     protected override void Shoot(Transform frontEnemyTransform)
     {
@@ -11,7 +11,7 @@ public class Tower_SingleAttack : Tower
 
         if (projectile.TryGetComponent(out IShootable shootable))
         {
-            shootable.SetProjectileValues(towerRunTimeStats.projectileDamage, towerRunTimeStats.projectileSpeed, frontEnemyTransform);
+            shootable.SetProjectileValues(towerRunTimeStats.attackDamage, towerRunTimeStats.projecttileSpeed, frontEnemyTransform);
         }
     }
 }

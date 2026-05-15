@@ -4,15 +4,15 @@ using UnityEngine;
 
 public abstract class Tower : MonoBehaviour
 {
-    [SerializeField] private Tower_SingleAttackStats towerStats;
-    protected Tower_SingleAttackStats towerRunTimeStats;
+    [SerializeField] private TowerStats towerStats;
+    protected TowerStats towerRunTimeStats;
     [SerializeField] private CircleCollider2D towerCollider;
     [SerializeField] private LayerMask enemyLayer;
     private List<Transform> enemys = new();
 
     #region Editor
-    public Tower_SingleAttackStats TowerStats { get => towerStats; }
-    public Tower_SingleAttackStats TowerRunTimeStats { get => towerRunTimeStats; set => towerRunTimeStats = value; }
+    public TowerStats TowerStats { get => towerStats; }
+    public TowerStats TowerRunTimeStats { get => towerRunTimeStats; set => towerRunTimeStats = value; }
 
     [HideInInspector] public bool foldout;
     #endregion

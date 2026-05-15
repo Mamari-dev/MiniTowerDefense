@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &989740435273157536
+--- !u!1 &1151771849711250506
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 901424236862311676}
-  - component: {fileID: 3014481151633688883}
+  - component: {fileID: 7304508634476068737}
+  - component: {fileID: 2359968881105192031}
   m_Layer: 10
   m_Name: Background
   m_TagString: Untagged
@@ -17,29 +17,29 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &901424236862311676
+--- !u!4 &7304508634476068737
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 989740435273157536}
+  m_GameObject: {fileID: 1151771849711250506}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.1, y: 1.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5658783109999393270}
+  m_Father: {fileID: 7136563492941445026}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &3014481151633688883
+--- !u!212 &2359968881105192031
 SpriteRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 989740435273157536}
+  m_GameObject: {fileID: 1151771849711250506}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -91,7 +91,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!1 &5637328686705273990
+--- !u!1 &7562915302221729951
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,41 +99,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5658783109999393270}
-  - component: {fileID: 6652273684595082107}
-  - component: {fileID: 3509667384136477133}
-  - component: {fileID: 6865389390103568398}
+  - component: {fileID: 7136563492941445026}
+  - component: {fileID: 5119007321995194463}
+  - component: {fileID: 1461604335722588906}
+  - component: {fileID: 6126459998918241119}
   m_Layer: 10
-  m_Name: Tower_SingleAttack
+  m_Name: BaseTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5658783109999393270
+--- !u!4 &7136563492941445026
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5637328686705273990}
+  m_GameObject: {fileID: 7562915302221729951}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.25, y: 1.22, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
+  m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 901424236862311676}
+  - {fileID: 7304508634476068737}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &6652273684595082107
+--- !u!212 &5119007321995194463
 SpriteRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5637328686705273990}
+  m_GameObject: {fileID: 7562915302221729951}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -175,7 +175,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -712631045867808456, guid: b670ab75dde984907b8570040daa08c5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d51133e1fb5070a4aa231c530a398a49, type: 3}
   m_Color: {r: 0, g: 0.4272151, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -185,13 +185,13 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!58 &3509667384136477133
+--- !u!58 &1461604335722588906
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5637328686705273990}
+  m_GameObject: {fileID: 7562915302221729951}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -221,20 +221,20 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 2
---- !u!114 &6865389390103568398
+--- !u!114 &6126459998918241119
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5637328686705273990}
+  m_GameObject: {fileID: 7562915302221729951}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bf82735e5ecff645a3602edfb0c64a9, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e576026782c5284799cececfb1f955d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Tower_SingleAttack
-  towerStats: {fileID: 11400000, guid: 85979c03641a1d543aeee9591503d538, type: 2}
-  towerCollider: {fileID: 3509667384136477133}
+  m_EditorClassIdentifier: Assembly-CSharp::TestTower
+  towerStats: {fileID: 11400000, guid: 5aa38719eef94f742963403cde506502, type: 2}
+  towerCollider: {fileID: 1461604335722588906}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 2048

@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(RectTransform))]
-public class Shop : MonoBehaviour
+public class ShopButton : MonoBehaviour
 {
     private int openPosition = 0;
     private float closePosition;

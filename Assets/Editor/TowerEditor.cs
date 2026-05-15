@@ -1,15 +1,15 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(Tower_SingleAttack))]
+[CustomEditor(typeof(BaseTower))]
 public class TowerEditor : Editor
 {
-    Tower_SingleAttack tower;
+    BaseTower tower;
     Editor dwarfEditor;
 
     private void OnEnable()
     {
-        tower = (Tower_SingleAttack)target;
+        tower = (BaseTower)target;
     }
 
     public override void OnInspectorGUI()
