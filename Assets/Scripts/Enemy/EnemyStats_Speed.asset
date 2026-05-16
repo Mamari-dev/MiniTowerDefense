@@ -18,3 +18,5 @@ MonoBehaviour:
   moveSpeed: 2.5
   rotationSpeed: 20
   damage: 1
+  currencyType: 2
+  currencyDropAmount: 10

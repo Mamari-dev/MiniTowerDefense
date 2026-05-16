@@ -9,6 +9,8 @@ public class EnemyStats : ScriptableObject
     [SerializeField] private float moveSpeed;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private float damage;
+    [SerializeField] private CurrencyTypes currencyType;
+    [SerializeField] private int currencyDropAmount;
 
     public EnemyType EnemyType { get => enemyType; set => enemyType = value; }
     public float MaxHealth { get => maxHealth; set => maxHealth = value; }
@@ -16,4 +18,6 @@ public class EnemyStats : ScriptableObject
     public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
     public float RotationSpeed { get => rotationSpeed; set => rotationSpeed = value; }
     public float Damage { get => damage; set => damage = value; }
+    public CurrencyTypes CurrencyType { get => currencyType; set => currencyType = value; }
+    public int CurrencyDropAmount { get => currencyDropAmount; set => currencyDropAmount = value; }
 }

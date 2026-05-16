@@ -7,6 +7,7 @@ public class TowerStats : ScriptableObject
     public string towerName;
     public Sprite icon;
     public Color iconColor;
+    public CurrencyTypes currencyType;
     public int cost;
 
     [Header("Tower Combat Values")]
@@ -18,7 +19,4 @@ public class TowerStats : ScriptableObject
     [Header("Tower Prefab")]
     public GameObject prefab;
     public GameObject ghostPrefab;
-    //[Header("Projectile Values")]
-    //public float projectileDamage;
-    //public float projectileSpeed;
 }

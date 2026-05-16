@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,9 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private List<Vector3> path = new();
     private int nextPathPoint = 0;
+
+    public Action OnDeath;
+
     #region Editor
     public EnemyStats Stats { get => stats; set => stats = value; }
     public EnemyStats CopyStats { get => copyStats; set => copyStats = value; }
@@ -24,6 +28,13 @@ public class Enemy : MonoBehaviour, IDamageable
         path = MapManager.Instance.CurrentWorldPath;
         copyStats.CurrentHealth = copyStats.MaxHealth;
         nextPathPoint = 0;
+
+        OnDeath += DropCurrency;
+    }
+
+    private void OnDisable()
+    {
+        OnDeath = null;
     }
 
     private void Update()
@@ -53,6 +64,7 @@ public class Enemy : MonoBehaviour, IDamageable
             if (nextPathPoint >= path.Count)
             {
                 Debug.Log("deal player damage");
+                OnDeath?.Invoke();
                 EnemyPoolingManager.Instance.BackInPool(this.gameObject, copyStats.EnemyType);
                 gameObject.SetActive(false);
             }
@@ -65,8 +77,14 @@ public class Enemy : MonoBehaviour, IDamageable
 
         if (copyStats.CurrentHealth <= 0)
         {
+            OnDeath?.Invoke();
             EnemyPoolingManager.Instance.BackInPool(this.gameObject, copyStats.EnemyType);
             gameObject.SetActive(false);
         }
+    }
+
+    private void DropCurrency()
+    {
+        CurrencyManager.Instance.UpdateCurrencyOverlay(copyStats.CurrencyType, copyStats.CurrencyDropAmount);
     }
 }

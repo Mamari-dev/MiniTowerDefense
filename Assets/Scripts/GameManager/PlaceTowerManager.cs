@@ -35,7 +35,9 @@ public class PlaceTowerManager : MonoBehaviour
         Vector3Int gridPos = buildTileMap.WorldToCell(mouseWorldPos);
         GameTiles clickedTile = buildTileMap.GetTile<GameTiles>(gridPos);
 
-        if (clickedTile != null && clickedTile.TileStruct.isBuildable && MapManager.Instance.IsTileBuildableBlocked(gridPos))
+        if (clickedTile != null && clickedTile.TileStruct.isBuildable
+            && MapManager.Instance.IsTileBuildableBlocked(gridPos)
+            && CurrencyManager.Instance.CheckCurrencyAmount(towerStats.currencyType, towerStats.cost))
         {
             //fake tower, for checking path
             GameTileStruct fakeData = new()
@@ -56,6 +58,8 @@ public class PlaceTowerManager : MonoBehaviour
             }
             else
             {
+                CurrencyManager.Instance.BuyTower(towerStats.currencyType, towerStats.cost);
+
                 Vector3 spawnPos = buildTileMap.GetCellCenterWorld(gridPos);
                 GameObject newTower = Instantiate(towerStats.prefab);
                 newTower.transform.position = spawnPos;
