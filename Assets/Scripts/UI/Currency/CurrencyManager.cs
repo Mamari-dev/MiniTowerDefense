@@ -8,6 +8,7 @@ public class CurrencyManager : MonoBehaviour
     private List<CurrencyOverlay> currencyOverlays = new();
 
     public static CurrencyManager Instance;
+    
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -19,6 +20,7 @@ public class CurrencyManager : MonoBehaviour
     private void Start()
     {
         InitCurrency(CurrencyTypes.Mana);
+        WaveManager.EndWave += RefreshMana;
     }
 
     private CurrencyOverlay InitCurrency(CurrencyTypes type)

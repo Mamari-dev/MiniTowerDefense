@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,8 +15,10 @@ public class WaveManager : MonoBehaviour
     private int waveCount = 1;
     private int currentEnemyAmount;
 
-
     private List<WaveManagerSpawnDatas> spawningEnemys = new();
+
+    public static Action StartWave;
+    public static Action EndWave;
 
     private void Start()
     {
@@ -39,6 +42,7 @@ public class WaveManager : MonoBehaviour
 
     public void OnStartClick()
     {
+        StartWave?.Invoke();
         startButton.interactable = false;
         Vector3 spawnPos = MapManager.Instance.StartTilePos;
 
@@ -79,7 +83,7 @@ public class WaveManager : MonoBehaviour
 
     private void PrepareNextWave()
     {
-        CurrencyManager.Instance.RefreshMana();
+        EndWave?.Invoke();
 
         for (int i = 0; i < spawningEnemys.Count; i++)
         {
@@ -103,5 +107,11 @@ public class WaveManager : MonoBehaviour
     private void UnRegisterEnemy()
     {
         currentEnemyAmount--;
+    }
+
+    private void OnDisable()
+    {
+        StartWave = null;
+        EndWave = null;
     }
 }

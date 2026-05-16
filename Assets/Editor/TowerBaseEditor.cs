@@ -1,25 +1,25 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(Enemy))]
-public class EnemyEditor : Editor
+[CustomEditor(typeof(Tower))]
+public class TowerBaseEditor : Editor
 {
-    Enemy enemy;
-    Editor dwarfEditor;
+    Tower tower;
+    Editor towerEditor;
 
     private void OnEnable()
     {
-        enemy = (Enemy)target;
+        tower = (Tower)target;
     }
 
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();  //standart Editor anzeige
 
-        if (enemy.Stats != null && !Application.isPlaying)
-            DrawEnemyValuesEditor(enemy.Stats, ref enemy.foldout, ref dwarfEditor);
-        else if (enemy.CopyStats != null && Application.isPlaying)
-            DrawEnemyValuesEditor(enemy.CopyStats, ref enemy.foldout, ref dwarfEditor);
+        if (tower.TowerBaseStats != null && !Application.isPlaying)
+            DrawEnemyValuesEditor(tower.TowerBaseStats, ref tower.foldout, ref towerEditor);
+        else if (tower.TowerRunTimeBaseStats != null && Application.isPlaying)
+            DrawEnemyValuesEditor(tower.TowerRunTimeBaseStats, ref tower.foldout, ref towerEditor);
     }
 
     private void DrawEnemyValuesEditor(Object baseValues, ref bool foldout, ref Editor editor)

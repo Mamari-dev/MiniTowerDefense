@@ -6,7 +6,7 @@ public class PlaceTowerManager : MonoBehaviour
 {
     [SerializeField] private Tilemap buildTileMap;
     private GameObject ghostTower;
-    private TowerStats towerStats;
+    private TowerBaseStats towerStats;
 
     public static PlaceTowerManager instance;
     public static Func<bool> OnClick;
@@ -14,6 +14,11 @@ public class PlaceTowerManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+    }
+
+    private void Start()
+    {
+        WaveManager.StartWave += CancelPlacement;
     }
 
     private void Update()
@@ -85,7 +90,7 @@ public class PlaceTowerManager : MonoBehaviour
         ghostTower.transform.position = snapPos;
     }
 
-    public void GetTower(TowerStats stats)
+    public void GetTower(TowerBaseStats stats)
     {
         if (ghostTower != null) Destroy(ghostTower);
 

@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb9d850faa78ebf4aaba300df4e01ca7, type: 3}
-  m_Name: TowerStats_SO
+  m_Name: TowerBaseStats_BaseTower
   m_EditorClassIdentifier: Assembly-CSharp::TowerStats
   towerName: Base Tower
-  icon: {fileID: 21300000, guid: d51133e1fb5070a4aa231c530a398a49, type: 3}
+  icon: {fileID: 21300000, guid: 6784d7015b346ef4689c032630fb298a, type: 3}
   iconColor: {r: 0, g: 0.42745098, b: 1, a: 1}
+  currencyType: 0
   cost: 2
   attackRange: 5
   attackSpeed: 2

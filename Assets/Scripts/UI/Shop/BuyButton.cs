@@ -8,9 +8,9 @@ public class BuyButton : MonoBehaviour
     [SerializeField] private TextMeshProUGUI towerCost;
     [SerializeField] private Image towerImage;
 
-    private TowerStats currentStats;
+    private TowerBaseStats currentStats;
 
-    public void InitDatas(TowerStats stats)
+    public void InitDatas(TowerBaseStats stats)
     {
         currentStats = stats;
         towerName.text = stats.towerName;

@@ -188,7 +188,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 10
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -245,6 +245,7 @@ GameObject:
   - component: {fileID: 2038378191037966017}
   - component: {fileID: 4757337047768019818}
   - component: {fileID: 4664653591707315062}
+  - component: {fileID: 8076926582455274180}
   m_Layer: 5
   m_Name: Buyable_Object
   m_TagString: Untagged
@@ -334,6 +335,19 @@ MonoBehaviour:
   towerName: {fileID: 5821473343854544983}
   towerCost: {fileID: 2198943020578322745}
   towerImage: {fileID: 3358525327595997880}
+--- !u!114 &8076926582455274180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3111919088818783239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a496564a312e09944b2075cb2d3fe39d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaveManagerActionButton
+  button: {fileID: 1987371920589017125}
 --- !u!1 &3524245406766540461
 GameObject:
   m_ObjectHideFlags: 0
