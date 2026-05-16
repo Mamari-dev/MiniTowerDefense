@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class MapManager : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class MapManager : MonoBehaviour
 
     private List<Vector3> currentWorldPath = new();
     public List<Vector3> CurrentWorldPath { get => currentWorldPath; set => currentWorldPath = value; }
+
+    [SerializeField] private Tilemap tileMap;
+    public Tilemap TileMap { get => tileMap; }
 
     private void Awake()
     {

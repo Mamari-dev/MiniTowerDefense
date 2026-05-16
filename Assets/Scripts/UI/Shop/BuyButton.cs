@@ -21,6 +21,6 @@ public class BuyButton : MonoBehaviour
 
     public void OnClick()
     {
-        PlaceTowerManager.instance.GetTower(currentStats);
+        PlayerInput.Instance.GetTower(currentStats);
     }
 }

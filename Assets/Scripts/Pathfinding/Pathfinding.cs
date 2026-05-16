@@ -13,6 +13,7 @@ public class Pathfinding : MonoBehaviour
     private void Start()
     {
         PlaceTowerManager.OnClick = CheckPath;
+        PlayerInput.IsPathAvailable = CheckPath;
 
         FindStartAndEndTilePos();
         FindPath();

@@ -65,16 +65,4 @@ public class ShopManager : MonoBehaviour
 
         moveCoroutine = null;
     }
-
-
-
-    #region später wavemanager
-    [SerializeField] private TowerBaseStats tower;
-
-    [ContextMenu("spawn tower button")]
-    private void SpawnTower()
-    {
-        SpawnTowerButton(tower);
-    }
-    #endregion
 }

@@ -9,7 +9,7 @@ public class PlaceTowerManager : MonoBehaviour
     private TowerBaseStats towerStats;
 
     public static PlaceTowerManager instance;
-    public static Func<bool> OnClick;
+    public static Func<bool> OnClick; //check in "Pathfinding", is path available if tower placed?
 
     private void Awake()
     {
