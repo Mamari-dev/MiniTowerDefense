@@ -20,7 +20,7 @@ public class ShopManager : MonoBehaviour
 
     private void CloseShop()
     {
-        if (isShopOpen == true) return;
+        if (!isShopOpen) return;
 
         if (moveCoroutine != null)
             StopCoroutine(moveCoroutine);

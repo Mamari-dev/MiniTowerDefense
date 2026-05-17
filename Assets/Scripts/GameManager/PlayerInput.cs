@@ -6,7 +6,6 @@ using UnityEngine.Tilemaps;
 
 public class PlayerInput : MonoBehaviour
 {
-    [SerializeField] private Tilemap tilemap;
     private GameObject ghostTower;
     private TowerBaseStats towerStats;
     private Vector3Int gridPosition;
@@ -64,8 +63,8 @@ public class PlayerInput : MonoBehaviour
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePosition);
         mouseWorldPos.z = 0;
 
-        gridPosition = tilemap.WorldToCell(mouseWorldPos);
-        GameTiles clickedTile = tilemap.GetTile<GameTiles>(gridPosition);
+        gridPosition = TilemapManager.Instance.GetGridPosition(mouseWorldPos);
+        GameTiles clickedTile = TilemapManager.Instance.GetTile(gridPosition);
 
         return clickedTile;
     }
@@ -103,7 +102,7 @@ public class PlayerInput : MonoBehaviour
     {
         CurrencyManager.Instance.BuyTower(towerStats.currencyType, towerStats.cost);
 
-        Vector3 spawnPos = tilemap.GetCellCenterWorld(gridPosition);
+        Vector3 spawnPos = TilemapManager.Instance.GetWorldPosition(gridPosition);
         GameObject newTower = Instantiate(towerStats.prefab);
         newTower.transform.position = spawnPos;
     }
@@ -167,8 +166,8 @@ public class PlayerInput : MonoBehaviour
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePosition);
             mouseWorldPos.z = 0;
 
-            Vector3Int gridPos = tilemap.WorldToCell(mouseWorldPos);
-            Vector3 snapPos = tilemap.GetCellCenterWorld(gridPos);
+            Vector3Int gridPos = TilemapManager.Instance.GetGridPosition(mouseWorldPos);
+            Vector3 snapPos = TilemapManager.Instance.GetWorldPosition(gridPos);
 
             ghostTower.transform.position = snapPos;
 
