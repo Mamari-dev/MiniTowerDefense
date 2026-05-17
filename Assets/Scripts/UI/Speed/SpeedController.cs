@@ -8,14 +8,35 @@ public class SpeedController : MonoBehaviour
     [SerializeField] private Color pressedColor;
 
     private readonly int startGameSpeed = 1;
+    private int currentGameSpeed;
 
-    private void Start()
+    public static SpeedController Instance;
+
+    private void Awake()
     {
-        ChangeColors(startGameSpeed);
+        if (Instance != null && Instance != this)
+            Destroy(gameObject);
+        else
+            Instance = this;
+
+        currentGameSpeed = startGameSpeed;
+    }
+
+    private void OnEnable()
+    {
+        ChangeSpeed(currentGameSpeed);
+        ChangeColors(currentGameSpeed);
+    }
+
+    private void OnDisable()
+    {
+        ChangeSpeed(0);
+        ChangeColors(0);
     }
 
     public void OnClick(int gameSpeed)
     {
+        currentGameSpeed = gameSpeed;
         ChangeSpeed(gameSpeed);
         ChangeColors(gameSpeed);
     }
@@ -53,5 +74,10 @@ public class SpeedController : MonoBehaviour
         cb.highlightedColor = new Color(newColor.r, newColor.g, newColor.b, 0.25f);
 
         return cb;
+    }
+
+    public void ChangeEnabled()
+    {
+        this.enabled = !this.enabled;
     }
 }

@@ -63,7 +63,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
             if (nextPathPoint >= path.Count)
             {
-                Debug.Log("deal player damage");
+                GameManager.Instance.Damage(copyStats.Damage);
                 OnDeath?.Invoke();
                 EnemyPoolingManager.Instance.BackInPool(this.gameObject, copyStats.EnemyType);
                 gameObject.SetActive(false);

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public class PlayerInput : MonoBehaviour
@@ -181,5 +182,26 @@ public class PlayerInput : MonoBehaviour
 
         if (ghostFollowMouseCoroutine != null)
             StopCoroutine(ghostFollowMouseCoroutine);
+    }
+
+    /// <summary>
+    /// 1 stand for breakscene in build options == index 1
+    /// </summary>
+    /// <param name="context"></param>
+    public void OnEscapeClick(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            if (SpeedController.Instance.isActiveAndEnabled)
+            {
+                SpeedController.Instance.ChangeEnabled();
+                SceneManager.LoadScene(1, LoadSceneMode.Additive);
+            }
+            else
+            {
+                SpeedController.Instance.ChangeEnabled();
+                SceneManager.UnloadSceneAsync(1);
+            }
+        }
     }
 }
