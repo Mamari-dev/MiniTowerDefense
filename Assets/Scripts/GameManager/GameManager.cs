@@ -6,8 +6,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int playerHealth;
     private int currenPlayerHealth;
 
-    [SerializeField] private string deathSceneName;
-
     public static GameManager Instance;
     private void Awake()
     {
@@ -20,6 +18,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         currenPlayerHealth = playerHealth;
+        HealthManager.Instance.SpawnHealth(currenPlayerHealth);
     }
 
     public void Damage(int damage)
@@ -34,7 +33,7 @@ public class GameManager : MonoBehaviour
         if (currenPlayerHealth <= 0)
         {
             Time.timeScale = 0;
-            SceneManager.LoadScene(deathSceneName, LoadSceneMode.Additive); //2 = index for deathscene in buildsettings
+            SceneManager.LoadScene(2, LoadSceneMode.Additive);
         }
     }
 }

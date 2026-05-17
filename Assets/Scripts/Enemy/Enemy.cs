@@ -64,6 +64,7 @@ public class Enemy : MonoBehaviour, IDamageable
             if (nextPathPoint >= path.Count)
             {
                 GameManager.Instance.Damage(copyStats.Damage);
+                HealthManager.Instance.GetDamage();
                 OnDeath?.Invoke();
                 EnemyPoolingManager.Instance.BackInPool(this.gameObject, copyStats.EnemyType);
                 gameObject.SetActive(false);
