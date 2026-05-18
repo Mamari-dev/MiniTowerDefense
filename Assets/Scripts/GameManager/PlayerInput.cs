@@ -153,6 +153,14 @@ public class PlayerInput : MonoBehaviour
         towerStats = stats;
         ghostTower = Instantiate(stats.ghostPrefab);
 
+        AttackRangeVisual attackRangeVisualDrawer = ghostTower.GetComponentInChildren<AttackRangeVisual>();
+        if (attackRangeVisualDrawer != null)
+        {
+            TowerCombatStats combatStats = towerStats.prefab.GetComponent<TowerCombat>().TowerCombatStats;
+            if (combatStats != null)
+                attackRangeVisualDrawer.DrawAttackRange(combatStats.attackRange);
+        }
+
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePosition);
 
         ghostTower.transform.position = mouseWorldPos;
