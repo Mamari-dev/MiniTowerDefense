@@ -6,6 +6,7 @@ public class TowerCombat : Tower
     [SerializeField] private TowerCombatStats towerCombatStats;
     protected TowerCombatStats towerRunTimeCombatStats;
     [SerializeField] private CircleCollider2D towerCollider;
+    [SerializeField] private AttackRangeVisual attackRangeVisual;
 
     [SerializeField] private LayerMask enemyLayer;
     private List<Transform> enemys = new();
@@ -15,11 +16,13 @@ public class TowerCombat : Tower
     public TowerCombatStats TowerRunTimeCombatStats { get => towerRunTimeCombatStats; }
     #endregion
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
         towerRunTimeCombatStats = Instantiate(towerCombatStats);
         towerCollider.radius = towerRunTimeCombatStats.attackRange;
+        attackRangeVisual.DrawAttackRange(towerRunTimeCombatStats.attackRange);
+        attackRangeVisual.EnAndDisableRenderer();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

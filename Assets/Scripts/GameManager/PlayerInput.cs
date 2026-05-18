@@ -9,6 +9,7 @@ public class PlayerInput : MonoBehaviour
 {
     private GameObject ghostTower;
     private TowerBaseStats towerStats;
+    private GameObject clickedTower;
     private Vector3Int gridPosition;
     private Vector2 mousePosition;
     private Coroutine ghostFollowMouseCoroutine;
@@ -37,16 +38,25 @@ public class PlayerInput : MonoBehaviour
             LeftClick();
     }
 
+    /// <summary>
+    /// if tile is not buildable or null, stop leftclick here
+    /// </summary>
     private void LeftClick()
     {
-        if (!HasGhostTower() || !CheckTowerCost()) return;
+        //DeselectClickedTower();
 
         GameTiles clickedTile = GetClickedTile();
-        if (clickedTile == null) return;
+        if (clickedTile == null || !clickedTile.TileStruct.isBuildable) return;
 
-        if (!CheckPath(clickedTile)) return;
+        if (CheckClickedTile() && HasGhostTower() && CheckTowerCost() && CheckPath())
+            PlaceTower();
+        else if (!CheckClickedTile())
+        {
+            StopGhostFollowCoroutine();
+            CancelPlacement();
 
-        PlaceTower();
+            GetClickedTower();
+        }
     }
 
     private bool HasGhostTower()
@@ -70,33 +80,26 @@ public class PlayerInput : MonoBehaviour
         return clickedTile;
     }
 
-    private bool CheckPath(GameTiles clickedTile)
+    /// <summary>
+    /// return false if the tile has a turret if not return true
+    /// </summary>
+    /// <returns></returns>
+    private bool CheckClickedTile()
     {
-        if (clickedTile.TileStruct.isBuildable && MapManager.Instance.IsTileBuildableBlocked(gridPosition))
+        return MapManager.Instance.IsTileBuildableBlocked(gridPosition);
+    }
+
+    private bool CheckPath()
+    {
+        MapManager.Instance.BlockTile(gridPosition, null, false, false);
+
+        if (IsPathAvailable != null && !IsPathAvailable())
         {
-            GameTileStruct fakeData = new()
-            {
-                isBuildable = false,
-                isPath = false,
-            };
-            MapManager.Instance.BlockTile(gridPosition, fakeData);
-
-            if (IsPathAvailable != null && !IsPathAvailable())
-            {
-                GameTileStruct data = new()
-                {
-                    isBuildable = false,
-                    isPath = true,
-                };
-                MapManager.Instance.BlockTile(gridPosition, data);
-
-                return false;
-            }
-            else
-                return true;
+            MapManager.Instance.BlockTile(gridPosition, null, false, true);
+            return false;
         }
 
-        return false;
+        return true;
     }
 
     private void PlaceTower()
@@ -106,6 +109,40 @@ public class PlayerInput : MonoBehaviour
         Vector3 spawnPos = TilemapManager.Instance.GetWorldPosition(gridPosition);
         GameObject newTower = Instantiate(towerStats.prefab);
         newTower.transform.position = spawnPos;
+
+        MapManager.Instance.BlockTile(gridPosition, newTower, false, false);
+    }
+
+    private void GetClickedTower()
+    {
+        GameObject tower = MapManager.Instance.GetPlacedTower(gridPosition);
+        if (tower == null) return;
+
+        if (clickedTower != null)
+        {
+            ChangeAttackRangeVisual();
+            ChangeTowerCanvas();
+        }
+
+        clickedTower = tower;
+        ChangeAttackRangeVisual();
+        ChangeTowerCanvas();
+    }
+
+    private void ChangeAttackRangeVisual()
+    {
+        AttackRangeVisual attackRangeVisual;
+        attackRangeVisual = clickedTower.GetComponentInChildren<AttackRangeVisual>();
+        if (attackRangeVisual != null)
+            attackRangeVisual.EnAndDisableRenderer();
+    }
+
+    private void ChangeTowerCanvas()
+    {
+        TowerCombatCanvas towerCombatCanvas;
+        towerCombatCanvas = clickedTower.GetComponentInChildren<TowerCombatCanvas>();
+        if (towerCombatCanvas != null)
+            towerCombatCanvas.EnAndDisableCanvas();
     }
 
     #endregion
@@ -122,6 +159,7 @@ public class PlayerInput : MonoBehaviour
     {
         StopGhostFollowCoroutine();
         CancelPlacement();
+        DeselectClickedTower();
     }
 
     private void StopGhostFollowCoroutine()
@@ -135,6 +173,17 @@ public class PlayerInput : MonoBehaviour
         Destroy(ghostTower);
         ghostTower = null;
         towerStats = null;
+    }
+
+    private void DeselectClickedTower()
+    {
+        if (clickedTower != null)
+        {
+            ChangeAttackRangeVisual();
+            ChangeTowerCanvas();
+
+            clickedTower = null;
+        }
     }
     #endregion
 

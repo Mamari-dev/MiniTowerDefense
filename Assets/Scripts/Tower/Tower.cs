@@ -12,8 +12,13 @@ public class Tower : MonoBehaviour
     [HideInInspector] public bool foldout;
     #endregion
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         towerRunTimeBaseStats = Instantiate(towerBaseStats);
+    }
+
+    protected virtual void DrawStats()
+    {
+
     }
 }

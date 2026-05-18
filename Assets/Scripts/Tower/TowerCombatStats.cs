@@ -8,4 +8,6 @@ public class TowerCombatStats : ScriptableObject
     public float attackSpeed;
     public float attackDamage;
     public float projecttileSpeed;
+
+    public float levelUpScaling;
 }

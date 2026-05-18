@@ -27,4 +27,9 @@ public class AttackRangeVisual : MonoBehaviour
             ));
         }
     }
+
+    public void EnAndDisableRenderer()
+    {
+        lineRenderer.enabled = !lineRenderer.enabled;
+    }
 }

@@ -1,21 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.Tilemaps;
 
 public class MapManager : MonoBehaviour
 {
-    public static MapManager Instance { get; private set; }
-
+    [SerializeField] private Tilemap tileMap;
+    private Vector3 startTilePos;
+    private List<Vector3> currentWorldPath = new();
     private Dictionary<Vector3Int, GameTileStruct> blockedTiles = new();
 
-    private Vector3 startTilePos;
+    public Tilemap TileMap { get => tileMap; }
     public Vector3 StartTilePos { get => startTilePos; set => startTilePos = value; }
-
-    private List<Vector3> currentWorldPath = new();
     public List<Vector3> CurrentWorldPath { get => currentWorldPath; set => currentWorldPath = value; }
 
-    [SerializeField] private Tilemap tileMap;
-    public Tilemap TileMap { get => tileMap; }
+    public static MapManager Instance { get; private set; }
 
     private void Awake()
     {
@@ -25,9 +24,16 @@ public class MapManager : MonoBehaviour
             Instance = this;
     }
 
-    public void BlockTile(Vector3Int pos, GameTileStruct tileDatas)
+    public void BlockTile(Vector3Int pos, GameObject tower, bool isBuildable, bool isPath)
     {
-        blockedTiles[pos] = tileDatas;
+        GameTileStruct newData = new()
+        {
+            tower = tower,
+            isBuildable = isBuildable,
+            isPath = isPath,
+        };
+
+        blockedTiles[pos] = newData;
     }
 
     public bool IsTileBuildableBlocked(Vector3Int pos)
@@ -50,5 +56,13 @@ public class MapManager : MonoBehaviour
             return datas.isPath;
 
         return true;
+    }
+
+    public GameObject GetPlacedTower(Vector3Int pos)
+    {
+        if (blockedTiles.ContainsKey(pos) && blockedTiles.TryGetValue(pos, out GameTileStruct datas))
+            return datas.tower;
+
+        return null;
     }
 }
