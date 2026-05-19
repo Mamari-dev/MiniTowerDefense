@@ -17,8 +17,8 @@ TagManager:
   - 
   - Tower
   - Enemy
-  - Tilemap_Tower
-  - 
+  - Tilemap
+  - Tower_Canvas
   - 
   - 
   - 
