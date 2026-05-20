@@ -12,14 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb9d850faa78ebf4aaba300df4e01ca7, type: 3}
   m_Name: TowerBaseStats_BaseTower
   m_EditorClassIdentifier: Assembly-CSharp::TowerStats
-  towerName: Base Tower
-  icon: {fileID: 21300000, guid: 6784d7015b346ef4689c032630fb298a, type: 3}
+  towerType: 2
+  towerIcon: {fileID: 21300000, guid: 6784d7015b346ef4689c032630fb298a, type: 3}
+  towerDescription: This tower just attacks enemys
   iconColor: {r: 0, g: 0.42745098, b: 1, a: 1}
   currencyType: 0
   cost: 2
-  currentLevel: 1
-  maxLevel: 10
-  upgradeCurrencyType: 1
-  upgradeCost: 20
   prefab: {fileID: 7562915302221729951, guid: 7d455e0158d1b2143b5b9968fa4b7c3d, type: 3}
   ghostPrefab: {fileID: 8649102175520784107, guid: 33096e1f3031b7f4e951863b7e70a9b2, type: 3}

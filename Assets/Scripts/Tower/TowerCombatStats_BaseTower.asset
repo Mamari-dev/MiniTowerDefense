@@ -12,8 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d4900295a5ba214380e9f12d235f96a, type: 3}
   m_Name: TowerCombatStats_BaseTower
   m_EditorClassIdentifier: Assembly-CSharp::TowerCombatStats
+  currentLevel: 1
+  maxLevel: 10
+  upgradeCurrencyType: 1
+  upgradeCost: 20
+  upgradeCostScaling: 5
   attackRange: 3
-  attackSpeed: 0.5
-  attackDamage: 1
+  attackSpeed: 1
+  attackDamage: 2
   projecttileSpeed: 5
-  levelUpScaling: 1.4
+  levelUpAttackScaling: 1.2
+  levelUpSpeedScaling: 0.9

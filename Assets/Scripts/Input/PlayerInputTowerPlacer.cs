@@ -1,5 +1,8 @@
 using System;
+using System.Runtime.InteropServices.WindowsRuntime;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerInputTowerPlacer
 {
@@ -21,21 +24,25 @@ public class PlayerInputTowerPlacer
     /// return false if the tile has a turret if not return true
     /// </summary>
     /// <returns></returns>
-    public bool CheckClickedTile()
+
+    public bool HasGhostTower(GameObject ghostTower, TowerBaseStats ghostTowerStats)
     {
-        return MapManager.Instance.IsTileBuildableBlocked(gridPosition);
+        return ghostTower != null && ghostTowerStats != null;
     }
 
-    public bool CheckPlacingConditions(GameObject ghostTower, TowerBaseStats towerStats, Func<bool> isPathAvailable)
+    public bool CheckPlacingConditions(TowerBaseStats ghostTowerStats, Func<bool> isPathAvailable)
     {
-        if (HasGhostTower(ghostTower) && CheckTowerCost(towerStats) && CheckPath(isPathAvailable))
+        if (CheckClickedTile(ghostTowerStats) && CheckTowerCost(ghostTowerStats) && CheckPath(isPathAvailable))
             return true;
         return false;
     }
-
-    private bool HasGhostTower(GameObject ghostTower)
+    private bool CheckClickedTile(TowerBaseStats towerStats)
     {
-        return ghostTower != null;
+        if (MapManager.Instance.IsTileBuildableBlocked(gridPosition) &&
+            MapManager.Instance.GetPlacedTowerType(gridPosition) != towerStats.towerType)
+            return true;
+
+        return false;
     }
 
     private bool CheckTowerCost(TowerBaseStats towerStats)
@@ -47,22 +54,17 @@ public class PlayerInputTowerPlacer
 
     private bool CheckPath(Func<bool> isPathAvailable)
     {
-        MapManager.Instance.BlockTile(gridPosition, null, false, false);
+        MapManager.Instance.BlockTile(gridPosition, null, TowerTypes.None, false, false);
 
         if (isPathAvailable != null && !isPathAvailable())
         {
-            MapManager.Instance.BlockTile(gridPosition, null, false, true);
+            MapManager.Instance.BlockTile(gridPosition, null, TowerTypes.None, false, true);
             return false;
         }
 
         return true;
     }
     #endregion
-
-    public Vector3Int GetGridPositon()
-    {
-        return gridPosition;
-    }
 
     #region GetClickedTower and Change Visuals
     public GameObject GetClickedTower(GameObject clickedTower)
@@ -107,12 +109,24 @@ public class PlayerInputTowerPlacer
 
     private void ChangeTowerCanvas(GameObject clickedTower)
     {
-        TowerCombatCanvas towerCombatCanvas;
-        towerCombatCanvas = clickedTower.GetComponentInChildren<TowerCombatCanvas>();
+        TowerNonCombatCanvas towerCombatCanvas;
+        towerCombatCanvas = clickedTower.GetComponentInChildren<TowerNonCombatCanvas>();
         if (towerCombatCanvas != null)
             towerCombatCanvas.EnAndDisableCanvas();
     }
     #endregion
 
+    public Vector3 BuyTower(TowerBaseStats towerStats)
+    {
+        CurrencyManager.Instance.BuyTower(towerStats.currencyType, towerStats.cost);
+        return TilemapManager.Instance.GetWorldPosition(gridPosition);
+    }
 
+    public void SetTileValues(GameObject tower, TowerBaseStats towerStats)
+    {
+        if (towerStats.towerType == TowerTypes.BlockTower)
+            MapManager.Instance.BlockTile(gridPosition, tower, towerStats.towerType, true, false);
+        else
+            MapManager.Instance.BlockTile(gridPosition, tower, towerStats.towerType, false, false);
+    }
 }

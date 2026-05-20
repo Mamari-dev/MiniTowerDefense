@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb9d850faa78ebf4aaba300df4e01ca7, type: 3}
   m_Name: TowerBaseStats_BlockTower
   m_EditorClassIdentifier: Assembly-CSharp::TowerStats
-  towerName: BlockTower
-  icon: {fileID: 21300000, guid: c2946677b16231444a5177c04b2dfa03, type: 3}
+  towerType: 1
+  towerIcon: {fileID: 21300000, guid: c2946677b16231444a5177c04b2dfa03, type: 3}
+  towerDescription: Didnt attack but block path, replacedable
   iconColor: {r: 0.36862746, g: 0, b: 0.7490196, a: 1}
   currencyType: 0
   cost: 1

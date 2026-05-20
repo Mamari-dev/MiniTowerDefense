@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyStats_Normal
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
   enemyType: 0
-  maxHealth: 2
+  maxHealth: 8
   currentHealth: 0
   moveSpeed: 1.5
   rotationSpeed: 10

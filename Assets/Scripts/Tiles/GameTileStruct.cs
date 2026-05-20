@@ -4,7 +4,8 @@ using UnityEngine;
 [Serializable]
 public struct GameTileStruct
 {
-    public GameObject tower;
+    [HideInInspector] public GameObject tower;
+    [HideInInspector] public TowerTypes towerType;
     public bool isPath;
     public bool isBuildable;
 }

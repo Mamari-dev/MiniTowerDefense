@@ -16,9 +16,4 @@ public class Tower : MonoBehaviour
     {
         towerRunTimeBaseStats = Instantiate(towerBaseStats);
     }
-
-    protected virtual void DrawStats()
-    {
-
-    }
 }

@@ -13,9 +13,9 @@ public class BuyButton : MonoBehaviour
     public void InitDatas(TowerBaseStats stats)
     {
         currentStats = stats;
-        towerName.text = stats.towerName;
+        towerName.text = stats.towerType.ToString();
         towerCost.text = stats.cost.ToString();
-        towerImage.sprite = stats.icon;
+        towerImage.sprite = stats.towerIcon;
         towerImage.color = stats.iconColor;
     }
 

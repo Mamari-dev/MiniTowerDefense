@@ -4,13 +4,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.Tilemaps;
 
 public class PlayerInput : MonoBehaviour
 {
-    [SerializeField] private LayerMask clickableLayer;
     private GameObject ghostTower;
-    private TowerBaseStats towerStats;
+    private TowerBaseStats ghostTowerStats;
     private GameObject clickedTower;
     private Vector2 mousePosition;
     private Coroutine ghostFollowMouseCoroutine;
@@ -63,9 +61,9 @@ public class PlayerInput : MonoBehaviour
         GameTiles clickedTile = towerPlacer.GetClickedTile(mousePosition);
         if (clickedTile == null || !clickedTile.TileStruct.isBuildable) return;
 
-        if (towerPlacer.CheckClickedTile() && towerPlacer.CheckPlacingConditions(ghostTower, towerStats, IsPathAvailable))
+        if (towerPlacer.HasGhostTower(ghostTower, ghostTowerStats) && towerPlacer.CheckPlacingConditions(ghostTowerStats, IsPathAvailable))
             PlaceTower();
-        else if(!towerPlacer.CheckClickedTile())
+        else if(!towerPlacer.HasGhostTower(ghostTower, ghostTowerStats))
         {
             StopGhostFollowCoroutine();
             CancelPlacement();
@@ -74,14 +72,12 @@ public class PlayerInput : MonoBehaviour
     }
 
     private void PlaceTower()
-    {
-        CurrencyManager.Instance.BuyTower(towerStats.currencyType, towerStats.cost);
-
-        Vector3 spawnPos = TilemapManager.Instance.GetWorldPosition(towerPlacer.GetGridPositon());
-        GameObject newTower = Instantiate(towerStats.prefab);
+    {        
+        Vector3 spawnPos = towerPlacer.BuyTower(ghostTowerStats);
+        GameObject newTower = Instantiate(ghostTowerStats.prefab);
         newTower.transform.position = spawnPos;
 
-        MapManager.Instance.BlockTile(towerPlacer.GetGridPositon(), newTower, false, false);
+        towerPlacer.SetTileValues(newTower, ghostTowerStats);
     }
 
     #endregion
@@ -111,7 +107,7 @@ public class PlayerInput : MonoBehaviour
     {
         Destroy(ghostTower);
         ghostTower = null;
-        towerStats = null;
+        ghostTowerStats = null;
     }
     #endregion
 
@@ -149,13 +145,13 @@ public class PlayerInput : MonoBehaviour
         if (ghostTower != null)
             Destroy(ghostTower);
 
-        towerStats = stats;
+        ghostTowerStats = stats;
         ghostTower = Instantiate(stats.ghostPrefab);
 
         AttackRangeVisual attackRangeVisualDrawer = ghostTower.GetComponentInChildren<AttackRangeVisual>();
         if (attackRangeVisualDrawer != null)
         {
-            TowerCombatStats combatStats = towerStats.prefab.GetComponent<TowerCombat>().TowerCombatStats;
+            TowerCombatStats combatStats = ghostTowerStats.prefab.GetComponent<TowerCombat>().TowerCombatStats;
             if (combatStats != null)
                 attackRangeVisualDrawer.DrawAttackRange(combatStats.attackRange);
         }

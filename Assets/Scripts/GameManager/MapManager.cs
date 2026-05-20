@@ -24,11 +24,16 @@ public class MapManager : MonoBehaviour
             Instance = this;
     }
 
-    public void BlockTile(Vector3Int pos, GameObject tower, bool isBuildable, bool isPath)
+    public void BlockTile(Vector3Int pos, GameObject tower, TowerTypes towerType, bool isBuildable, bool isPath)
     {
+        blockedTiles.TryGetValue(pos, out GameTileStruct oldData);
+        if (oldData.tower != null)
+            Destroy(oldData.tower);
+
         GameTileStruct newData = new()
         {
             tower = tower,
+            towerType = towerType,
             isBuildable = isBuildable,
             isPath = isPath,
         };
@@ -60,9 +65,19 @@ public class MapManager : MonoBehaviour
 
     public GameObject GetPlacedTower(Vector3Int pos)
     {
-        if (blockedTiles.ContainsKey(pos) && blockedTiles.TryGetValue(pos, out GameTileStruct datas))
-            return datas.tower;
+        blockedTiles.TryGetValue(pos, out GameTileStruct datas);
+        return datas.tower;
+    }
 
-        return null;
+    public TowerTypes GetPlacedTowerType(Vector3Int pos)
+    {
+        blockedTiles.TryGetValue(pos, out GameTileStruct datas);
+        return datas.towerType;
+    }
+
+    public void DestroyTower(Vector3Int pos)
+    {
+        blockedTiles.TryGetValue(pos, out GameTileStruct datas);
+        Destroy(datas.tower);
     }
 }
