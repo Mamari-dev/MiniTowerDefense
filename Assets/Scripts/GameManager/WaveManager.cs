@@ -60,7 +60,7 @@ public class WaveManager : MonoBehaviour
                 GameObject enemy = EnemyPoolingManager.Instance.GetEnemy(spawningEnemys[i].enemyType);
                 enemy.transform.position = spawnPos;
                 if (enemy.TryGetComponent(out Enemy enemyScript))
-                    enemyScript.OnDeath += UnRegisterEnemy;
+                    enemyScript.OnDeathAction += UnRegisterEnemy;
                 enemy.SetActive(true);
 
                 currentEnemyAmount++;

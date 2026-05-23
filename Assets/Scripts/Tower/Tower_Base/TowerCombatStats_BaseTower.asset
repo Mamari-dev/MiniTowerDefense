@@ -14,12 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerCombatStats
   currentLevel: 1
   maxLevel: 10
-  upgradeCurrencyType: 2
+  upgradeCurrencyType: 1
+  currencyColor: {r: 1, g: 0, b: 0, a: 1}
   upgradeCost: 20
   upgradeCostScaling: 5
-  attackRange: 2
+  targetAmount: 1
+  attackRange: 3
   attackSpeed: 1.5
-  attackDamage: 1
+  attackDamage: 4
   projecttileSpeed: 5
-  levelUpAttackScaling: 1
+  levelUpAttackScaling: 1.2
   levelUpSpeedScaling: 0.9
+  attackPattern: 0
+  attackTargetTypes: 1

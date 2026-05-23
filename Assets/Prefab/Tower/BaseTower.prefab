@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 7136563492941445026}
   - component: {fileID: 5119007321995194463}
   - component: {fileID: 1461604335722588906}
-  - component: {fileID: 5205709953363613545}
+  - component: {fileID: 4916297146909228027}
   m_Layer: 10
   m_Name: BaseTower
   m_TagString: Untagged
@@ -242,7 +242,7 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 6784d7015b346ef4689c032630fb298a, type: 3}
-  m_Color: {r: 0, g: 0.4272151, b: 1, a: 1}
+  m_Color: {r: 0.46666667, g: 0.6784314, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -287,7 +287,7 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 2
---- !u!114 &5205709953363613545
+--- !u!114 &4916297146909228027
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -296,9 +296,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7562915302221729951}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78951cb545431a24ba96cd89faa2714e, type: 3}
+  m_Script: {fileID: 11500000, guid: 291a4c44f18e6514e88592aad1a71e31, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TowerCombat
+  m_EditorClassIdentifier: Assembly-CSharp::BaseTower
   towerBaseStats: {fileID: 11400000, guid: 5aa38719eef94f742963403cde506502, type: 2}
   foldout: 1
   towerCombatStats: {fileID: 11400000, guid: eac04cac25aeaba42aa5af02fd468c8e, type: 2}

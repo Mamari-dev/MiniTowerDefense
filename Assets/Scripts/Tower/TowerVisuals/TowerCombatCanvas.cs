@@ -10,14 +10,15 @@ public class TowerCombatCanvas : TowerNonCombatCanvas
     [SerializeField] private TextMeshProUGUI attackValue;
     [SerializeField] private TextMeshProUGUI attackSpeedValue;
     [SerializeField] private TextMeshProUGUI upgradeCostValue;
+    [SerializeField] private Image upgradeImage;
 
-    //private TowerBaseStats towerBaseStats;
     private TowerCombatStats towerCombatStats;
 
     protected override void Start()
     {
         base.Start();
         towerCombatStats = GetComponentInParent<TowerCombat>().TowerRunTimeCombatStats;
+        upgradeImage.color = towerCombatStats.currencyColor;
 
         UpdateCombatStats();
     }

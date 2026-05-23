@@ -1,8 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, IDamageable
+public class Enemy : MonoBehaviour, IDamageable, ISlowable
 {
     [SerializeField] private EnemyStats stats;
     private EnemyStats copyStats;
@@ -10,11 +11,15 @@ public class Enemy : MonoBehaviour, IDamageable
     private List<Vector3> path = new();
     private int nextPathPoint = 0;
 
-    public Action OnDeath;
+    private Coroutine slowCoroutine;
+
+    public Action OnDeathAction;
+    public Action<Enemy, TowerAttackTypes> OnDeathTowerAction;
 
     #region Editor
     public EnemyStats Stats { get => stats; set => stats = value; }
     public EnemyStats CopyStats { get => copyStats; set => copyStats = value; }
+
     [HideInInspector] public bool foldout;
     #endregion
 
@@ -27,14 +32,16 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         path = MapManager.Instance.CurrentWorldPath;
         copyStats.CurrentHealth = copyStats.MaxHealth;
+        copyStats.CurrentMoveSpeed = copyStats.BaseMoveSpeed;
         nextPathPoint = 0;
 
-        OnDeath += DropCurrency;
+        OnDeathAction += DropCurrency;
     }
 
     private void OnDisable()
     {
-        OnDeath = null;
+        OnDeathAction = null;
+        OnDeathTowerAction = null;
     }
 
     private void Update()
@@ -50,7 +57,7 @@ public class Enemy : MonoBehaviour, IDamageable
         Vector2 dir = (path[nextPathPoint] - transform.position).normalized;
         transform.up = Vector3.Slerp(transform.up, dir, copyStats.RotationSpeed * Time.deltaTime);
 
-        transform.position = Vector3.MoveTowards(transform.position, path[nextPathPoint], copyStats.MoveSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, path[nextPathPoint], copyStats.CurrentMoveSpeed * Time.deltaTime);
     }
 
     private void CheckWayPoint()
@@ -65,7 +72,8 @@ public class Enemy : MonoBehaviour, IDamageable
             {
                 GameManager.Instance.Damage(copyStats.Damage);
                 HealthManager.Instance.GetDamage();
-                OnDeath?.Invoke();
+                OnDeathAction?.Invoke();
+                OnDeathTowerAction?.Invoke(this, copyStats.EnemyTargetType);
                 EnemyPoolingManager.Instance.BackInPool(this.gameObject, copyStats.EnemyType);
                 gameObject.SetActive(false);
             }
@@ -78,11 +86,32 @@ public class Enemy : MonoBehaviour, IDamageable
 
         if (copyStats.CurrentHealth <= 0)
         {
-            OnDeath?.Invoke();
+            OnDeathAction?.Invoke();
+            OnDeathTowerAction?.Invoke(this, copyStats.EnemyTargetType);
             EnemyPoolingManager.Instance.BackInPool(this.gameObject, copyStats.EnemyType);
             gameObject.SetActive(false);
         }
     }
+
+    public void Slow(float slowStrength, float slowDuration)
+    {
+        copyStats.CurrentMoveSpeed *= ( 1 - slowStrength);
+
+        if (slowCoroutine != null)
+            StopCoroutine(slowCoroutine);
+
+        slowCoroutine = StartCoroutine(SlowTime(slowDuration));
+    }
+
+    private IEnumerator SlowTime(float slowDuration)
+    {
+        yield return new WaitForSeconds(slowDuration);
+
+        copyStats.CurrentMoveSpeed = copyStats.BaseMoveSpeed;
+
+        slowCoroutine = null;
+    }
+
 
     private void DropCurrency()
     {

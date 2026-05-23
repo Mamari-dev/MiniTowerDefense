@@ -622,6 +622,7 @@ MonoBehaviour:
   towerDatas:
   - {fileID: 11400000, guid: 886a8919ef04d034f8a275e405a4a73c, type: 2}
   - {fileID: 11400000, guid: 5aa38719eef94f742963403cde506502, type: 2}
+  - {fileID: 11400000, guid: 3f8359293b1f22f468314bdbf4440a00, type: 2}
   shopTransform: {fileID: 4747407099804746750}
 --- !u!1001 &1246837342
 PrefabInstance:

@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class ProjectilePoolingManager : MonoBehaviour
 {
-    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private ProjectilePoolingStruct[] projectilePrefabs;
 
     public static ProjectilePoolingManager Instance { get; private set; }
-    private Stack<GameObject> poolStack = new();
+    private Dictionary<ProjectileTypes, Stack<GameObject>> pools = new();
 
     private void Awake()
     {
@@ -14,24 +14,41 @@ public class ProjectilePoolingManager : MonoBehaviour
             Destroy(gameObject);
         else
             Instance = this;
+
+        InstantiatePools();
     }
 
-    public GameObject GetProjectile()
+    private void InstantiatePools()
     {
-        return CheckPoolForObject();
+        foreach (ProjectileTypes type in System.Enum.GetValues(typeof(EnemyType)))
+        {
+            pools[type] = new Stack<GameObject>();
+        }
     }
 
-    private GameObject CheckPoolForObject()
+    public GameObject GetProjectile(ProjectileTypes type)
     {
-        if (poolStack.Count == 0)
-            return Instantiate(projectilePrefab, transform);
-        else
-            return poolStack.Pop();
+        return CheckPoolForObject(type);
     }
 
-    public void BackInPool(GameObject poolObject)
+    private GameObject CheckPoolForObject(ProjectileTypes type)
     {
-        poolStack.Push(poolObject);
+        if (pools[type].Count == 0)
+        {
+            for (int i = 0; i < projectilePrefabs.Length; i++)
+            {
+                if (projectilePrefabs[i].projectileTypes == type)
+                    return Instantiate(projectilePrefabs[i].projectilePrefab, transform);
+            }
+
+        }
+
+        return pools[type].Pop();
+    }
+
+    public void BackInPool(GameObject poolObject, ProjectileTypes type)
+    {
+        pools[type].Push(poolObject);
         poolObject.SetActive(false);
     }
 }

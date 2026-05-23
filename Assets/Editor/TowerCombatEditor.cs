@@ -1,8 +1,7 @@
-﻿using Unity.VisualScripting;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(TowerCombat))]
+[CustomEditor(typeof(TowerCombat), true)]
 public class TowerCombatEditor : Editor
 {
     TowerCombat tower;
