@@ -21,6 +21,9 @@ public class TowerCombatCanvas : TowerNonCombatCanvas
         upgradeImage.color = towerCombatStats.currencyColor;
 
         UpdateCombatStats();
+
+        WaveManager.StartWave += LockButton;
+        WaveManager.EndWave += LockButton;
     }
 
     private void UpdateCombatStats()
@@ -49,5 +52,10 @@ public class TowerCombatCanvas : TowerNonCombatCanvas
 
         if (towerCombatStats.currentLevel == towerCombatStats.maxLevel)
             button.interactable = false;
+    }
+
+    private void LockButton()
+    {
+        button.interactable = !button.interactable;
     }
 }

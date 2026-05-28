@@ -42,6 +42,8 @@ public class Enemy : MonoBehaviour, IDamageable, ISlowable
     {
         OnDeathAction = null;
         OnDeathTowerAction = null;
+        if (slowCoroutine != null)
+            StopCoroutine(slowCoroutine);
     }
 
     private void Update()
@@ -95,12 +97,13 @@ public class Enemy : MonoBehaviour, IDamageable, ISlowable
 
     public void Slow(float slowStrength, float slowDuration)
     {
-        copyStats.CurrentMoveSpeed *= ( 1 - slowStrength);
+        copyStats.CurrentMoveSpeed *= (1 - slowStrength);
 
         if (slowCoroutine != null)
             StopCoroutine(slowCoroutine);
 
-        slowCoroutine = StartCoroutine(SlowTime(slowDuration));
+        if (this.gameObject.activeSelf)
+            slowCoroutine = StartCoroutine(SlowTime(slowDuration));
     }
 
     private IEnumerator SlowTime(float slowDuration)
