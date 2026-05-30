@@ -15,7 +15,6 @@ public class FreezeTower : TowerCombat
         GameObject projectile = ProjectilePoolingManager.Instance.GetProjectile(towerRunTimeCombatStats.projectileType);
 
         projectile.transform.position = transform.position;
-        projectile.SetActive(true);
 
         IShootable shootable = null;
         ISlowable slowable = null;
@@ -32,5 +31,6 @@ public class FreezeTower : TowerCombat
             Debug.Log(shootable);
             Debug.Log(slowable);
         }
+        projectile.SetActive(true);
     }
 }

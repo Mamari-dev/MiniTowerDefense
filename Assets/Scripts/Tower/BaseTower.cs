@@ -8,11 +8,11 @@ public class BaseTower : TowerCombat
         GameObject projectile = ProjectilePoolingManager.Instance.GetProjectile(towerRunTimeCombatStats.projectileType);
 
         projectile.transform.position = transform.position;
-        projectile.SetActive(true);
 
         if (projectile.TryGetComponent(out IShootable shootable))
         {
             shootable.SetProjectileValues(towerRunTimeCombatStats.attackDamage, towerRunTimeCombatStats.projecttileSpeed, frontEnemyTransform);
         }
+        projectile.SetActive(true);
     }
 }

@@ -8,13 +8,13 @@ public class Enemy : MonoBehaviour, IDamageable, ISlowable
     [SerializeField] private EnemyStats stats;
     private EnemyStats copyStats;
 
-    private List<Vector3> path = new();
+    private List<Vector3> path;
     private int nextPathPoint = 0;
 
     private Coroutine slowCoroutine;
 
-    public Action OnDeathAction;
-    public Action<Enemy, TowerAttackTypes> OnDeathTowerAction;
+    public Action OnDeathAction;                                //for WaveManager to Check when wave ends
+    public Action<Enemy, TowerAttackTypes> OnDeathTowerAction;  //for Tower Combat Script (OnTrigger)
 
     #region Editor
     public EnemyStats Stats { get => stats; set => stats = value; }
@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour, IDamageable, ISlowable
 
     private void OnEnable()
     {
-        path = MapManager.Instance.CurrentWorldPath;
+        path = new(MapManager.Instance.CurrentWorldPath);
         copyStats.CurrentHealth = copyStats.MaxHealth;
         copyStats.CurrentMoveSpeed = copyStats.BaseMoveSpeed;
         nextPathPoint = 0;
@@ -40,6 +40,7 @@ public class Enemy : MonoBehaviour, IDamageable, ISlowable
 
     private void OnDisable()
     {
+        path.Clear();
         OnDeathAction = null;
         OnDeathTowerAction = null;
         if (slowCoroutine != null)
@@ -97,7 +98,8 @@ public class Enemy : MonoBehaviour, IDamageable, ISlowable
 
     public void Slow(float slowStrength, float slowDuration)
     {
-        copyStats.CurrentMoveSpeed *= (1 - slowStrength);
+        if (copyStats.CurrentMoveSpeed == copyStats.BaseMoveSpeed)
+            copyStats.CurrentMoveSpeed *= (1 - slowStrength);
 
         if (slowCoroutine != null)
             StopCoroutine(slowCoroutine);

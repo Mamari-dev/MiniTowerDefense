@@ -4,9 +4,10 @@ public class ProjectileSlow : Projectile, ISlowable
 {
     private ProjectileSlowStats slowStats;
 
-    private void Awake()
+    protected override void Awake()
     {
-        slowStats = (ProjectileSlowStats)projectileStats;
+        base.Awake();
+        slowStats = (ProjectileSlowStats)copyProjectileStats;
     }
 
     public void Slow(float slowStrength, float slowDuration)
