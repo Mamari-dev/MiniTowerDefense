@@ -32,8 +32,8 @@ public class TowerCombatCanvas : TowerNonCombatCanvas
         towerMaxLevel.text = towerCombatStats.maxLevel.ToString();
         upgradeCostValue.text = towerCombatStats.upgradeCost.ToString();
 
-        attackValue.text = towerCombatStats.attackDamage.ToString();
-        attackSpeedValue.text = towerCombatStats.attackSpeed.ToString();
+        attackValue.text = towerCombatStats.attackDamage.ToString("F2");
+        attackSpeedValue.text = towerCombatStats.attackSpeed.ToString("F2");
     }
 
     public void OnUpgrade()
@@ -44,8 +44,8 @@ public class TowerCombatCanvas : TowerNonCombatCanvas
 
         towerCombatStats.currentLevel++;
         towerCombatStats.upgradeCost += towerCombatStats.upgradeCostScaling;
-        towerCombatStats.attackDamage = Mathf.Round(towerCombatStats.attackDamage * towerCombatStats.levelUpAttackScaling * 10) * 0.1f;
-        towerCombatStats.attackSpeed = Mathf.Round((towerCombatStats.attackSpeed *= towerCombatStats.levelUpSpeedScaling) * 10) * 0.1f;
+        towerCombatStats.attackDamage *= towerCombatStats.levelUpAttackScaling;
+        towerCombatStats.attackSpeed *= towerCombatStats.levelUpSpeedScaling;
 
         towerCurrentLevel.text = towerCombatStats.currentLevel.ToString();
         UpdateCombatStats();

@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour, IDamageable, ISlowable
 
     private List<Vector3> path;
     private int nextPathPoint = 0;
+    private bool isDead = false;
 
     private Coroutine slowCoroutine;
 
@@ -30,10 +31,10 @@ public class Enemy : MonoBehaviour, IDamageable, ISlowable
 
     private void OnEnable()
     {
+        isDead = false;
         path = new(MapManager.Instance.CurrentWorldPath);
         copyStats.CurrentHealth = copyStats.MaxHealth;
         copyStats.CurrentMoveSpeed = copyStats.BaseMoveSpeed;
-        nextPathPoint = 0;
 
         OnDeathAction += DropCurrency;
     }
@@ -41,6 +42,7 @@ public class Enemy : MonoBehaviour, IDamageable, ISlowable
     private void OnDisable()
     {
         path.Clear();
+        nextPathPoint = 0;
         OnDeathAction = null;
         OnDeathTowerAction = null;
         if (slowCoroutine != null)
@@ -73,26 +75,28 @@ public class Enemy : MonoBehaviour, IDamageable, ISlowable
 
             if (nextPathPoint >= path.Count)
             {
+                isDead = true;
                 GameManager.Instance.Damage(copyStats.Damage);
                 HealthManager.Instance.GetDamage();
                 OnDeathAction?.Invoke();
                 OnDeathTowerAction?.Invoke(this, copyStats.EnemyTargetType);
                 EnemyPoolingManager.Instance.BackInPool(this.gameObject, copyStats.EnemyType);
-                gameObject.SetActive(false);
             }
         }
     }
 
     public void Damage(float damage)
     {
+        if (isDead) return;
+
         copyStats.CurrentHealth -= damage;
 
         if (copyStats.CurrentHealth <= 0)
         {
+            isDead = true;
             OnDeathAction?.Invoke();
             OnDeathTowerAction?.Invoke(this, copyStats.EnemyTargetType);
             EnemyPoolingManager.Instance.BackInPool(this.gameObject, copyStats.EnemyType);
-            gameObject.SetActive(false);
         }
     }
 
