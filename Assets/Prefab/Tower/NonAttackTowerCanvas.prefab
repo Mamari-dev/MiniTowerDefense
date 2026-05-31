@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 5179293996958636040}
   - component: {fileID: 4131465268065001584}
   - component: {fileID: 6566367014252095350}
+  - component: {fileID: 3513742149174983284}
+  - component: {fileID: 385225973822053284}
   m_Layer: 13
   m_Name: NonAttackTowerCanvas
   m_TagString: Untagged
@@ -92,8 +94,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TowerNonCombatCanvas
   canvas: {fileID: 5179293996958636040}
+  rectTransform: {fileID: 4480913378193449493}
   towerName: {fileID: 4176354903826207690}
   towerDescription: {fileID: 6682805097360207466}
+--- !u!114 &3513742149174983284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2723655206824560393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.HorizontalLayoutGroup
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 7
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
+--- !u!114 &385225973822053284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2723655206824560393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
+  m_HorizontalFit: 0
+  m_VerticalFit: 2
 --- !u!1 &3383347639089834097
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,7 +487,6 @@ GameObject:
   - component: {fileID: 5512363366270563982}
   - component: {fileID: 6192912586645666279}
   - component: {fileID: 1587573612271529728}
-  - component: {fileID: 2754642996764209236}
   m_Layer: 13
   m_Name: Group_Background
   m_TagString: Untagged
@@ -467,10 +509,10 @@ RectTransform:
   - {fileID: 8574140015671283505}
   m_Father: {fileID: 4480913378193449493}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 280, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &5512363366270563982
 MonoBehaviour:
@@ -526,7 +568,7 @@ MonoBehaviour:
     m_Left: 15
     m_Right: 15
     m_Top: 10
-    m_Bottom: 10
+    m_Bottom: 15
   m_ChildAlignment: 1
   m_Spacing: 5
   m_ChildForceExpandWidth: 1
@@ -536,17 +578,3 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &2754642996764209236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8312362713731300515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
-  m_HorizontalFit: 0
-  m_VerticalFit: 2

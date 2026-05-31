@@ -49,10 +49,6 @@ public class EnemyPoolingManager : MonoBehaviour
 
     public void BackInPool(GameObject poolObject, EnemyType type)
     {
-        if (pools[type].Contains(poolObject))
-            Debug.LogError($"Doppelter BackInPool! \n" +
-                $"{System.Environment.StackTrace}", poolObject);
-
         pools[type].Push(poolObject);
         poolObject.SetActive(false);
     }
