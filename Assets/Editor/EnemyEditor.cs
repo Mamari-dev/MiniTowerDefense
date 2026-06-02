@@ -16,8 +16,8 @@ public class EnemyEditor : Editor
     {
         base.OnInspectorGUI();  //standart Editor anzeige
 
-        if (enemy.Stats != null && !Application.isPlaying)
-            DrawEnemyValuesEditor(enemy.Stats, ref enemy.foldout, ref dwarfEditor);
+        if (enemy.BaseStats != null && !Application.isPlaying)
+            DrawEnemyValuesEditor(enemy.BaseStats, ref enemy.foldout, ref dwarfEditor);
         else if (enemy.CopyStats != null && Application.isPlaying)
             DrawEnemyValuesEditor(enemy.CopyStats, ref enemy.foldout, ref dwarfEditor);
     }

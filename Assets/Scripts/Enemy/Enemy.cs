@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IDamageable, ISlowable
 {
-    [SerializeField] private EnemyStats stats;
+    [SerializeField] private EnemyStats baseStats;
     private EnemyStats copyStats;
 
     private List<Vector3> path;
@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour, IDamageable, ISlowable
     public Action<Enemy, TowerAttackTypes> OnDeathTowerAction;  //for Tower Combat Script (OnTrigger)
 
     #region Editor
-    public EnemyStats Stats { get => stats; set => stats = value; }
+    public EnemyStats BaseStats { get => baseStats; private set => baseStats = value; }
     public EnemyStats CopyStats { get => copyStats; set => copyStats = value; }
 
     [HideInInspector] public bool foldout;
@@ -26,14 +26,13 @@ public class Enemy : MonoBehaviour, IDamageable, ISlowable
 
     private void Awake()
     {
-        copyStats = Instantiate(stats);
+        copyStats = Instantiate(baseStats);
     }
 
     private void OnEnable()
     {
         isDead = false;
         path = new(MapManager.Instance.CurrentWorldPath);
-        copyStats.CurrentHealth = copyStats.MaxHealth;
         copyStats.CurrentMoveSpeed = copyStats.BaseMoveSpeed;
 
         OnDeathAction += DropCurrency;
@@ -47,6 +46,13 @@ public class Enemy : MonoBehaviour, IDamageable, ISlowable
         OnDeathTowerAction = null;
         if (slowCoroutine != null)
             StopCoroutine(slowCoroutine);
+    }
+
+    public void InitStats(float hpScalingValue, int waveCount)
+    {
+        float newHealth = baseStats.Health * Mathf.Pow(hpScalingValue, waveCount - 1);
+        copyStats.Health = newHealth;
+        copyStats.CurrentMoveSpeed = copyStats.BaseMoveSpeed;
     }
 
     private void Update()
@@ -89,9 +95,9 @@ public class Enemy : MonoBehaviour, IDamageable, ISlowable
     {
         if (isDead) return;
 
-        copyStats.CurrentHealth -= damage;
+        copyStats.Health -= damage;
 
-        if (copyStats.CurrentHealth <= 0)
+        if (copyStats.Health <= 0)
         {
             isDead = true;
             OnDeathAction?.Invoke();

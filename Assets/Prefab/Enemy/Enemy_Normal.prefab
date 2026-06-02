@@ -261,5 +261,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a62f8527a3bdfe7449ac8b7bc159d239, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  stats: {fileID: 11400000, guid: c3b11ae5e1c7dfe47a5c95ed142fed09, type: 2}
+  baseStats: {fileID: 11400000, guid: c3b11ae5e1c7dfe47a5c95ed142fed09, type: 2}
   foldout: 1

@@ -178,7 +178,7 @@ public abstract class TowerCombat : Tower
         {
             case TowerAttackTypes.Health:
                 {
-                    return preferedList.OrderByDescending(enemy => enemy.CopyStats.CurrentHealth).ToList();
+                    return preferedList.OrderByDescending(enemy => enemy.CopyStats.Health).ToList();
                 }
             case TowerAttackTypes.Speed:
                 {
@@ -198,7 +198,7 @@ public abstract class TowerCombat : Tower
         {
             case TowerAttackTypes.Health:
                 {
-                    return preferedList.OrderBy(enemy => enemy.CopyStats.CurrentHealth).ToList();
+                    return preferedList.OrderBy(enemy => enemy.CopyStats.Health).ToList();
                 }
             case TowerAttackTypes.Speed:
                 {

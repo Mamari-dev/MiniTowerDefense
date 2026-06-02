@@ -7,37 +7,31 @@ using UnityEngine.UI;
 public class WaveManager : MonoBehaviour
 {
     [SerializeField] private Button startButton;
-    [SerializeField] private EnemyType[] enemyTypes;
-    [SerializeField] private int startAmount = 4;
-    [SerializeField] private float amountScaling = 1.15f;
-    [SerializeField] private float spawnDelay = 1f;
-    private int enemyTypeNumber = 0;
-    private int waveCount = 1;
-    private int currentEnemyAmount;
+    [SerializeField] private WaveManagerEnemyDatas[] enemyDatas;
+    [SerializeField] private float waveDelayScaling = 0.85f;
+    private int waveCount = 0;
+    private int currentEnemyAmount = 0;
+    private int currentSpawnerAmount = 0;
 
-    private List<WaveManagerSpawnDatas> spawningEnemys = new();
+    private List<WaveManagerEnemyDatas> spawningEnemys = new();
 
     public static Action StartWave;
     public static Action EndWave;
 
     private void Start()
     {
-        AddSpawningEnemy();
+        AddSpawningEnemy(EnemyType.normal);
     }
 
-    private void AddSpawningEnemy()
+    private void AddSpawningEnemy(EnemyType type)
     {
-        if (enemyTypeNumber >= enemyTypes.Length) return;
-
-        WaveManagerSpawnDatas enemySpawnDatas = new()
+        foreach (var enemyData in enemyDatas)
         {
-            enemyType = enemyTypes[enemyTypeNumber],
-            spawnAmount = startAmount,
-        };
-
-        spawningEnemys.Add(enemySpawnDatas);
-
-        enemyTypeNumber++;
+            if (enemyData.EnemyType == type)
+            {
+                spawningEnemys.Add(enemyData);
+            }
+        }
     }
 
     public void OnStartClick()
@@ -46,36 +40,51 @@ public class WaveManager : MonoBehaviour
         startButton.interactable = false;
         Vector3 spawnPos = MapManager.Instance.StartTilePos;
 
-        StartCoroutine(SpawnEnemys(spawnPos));
-
         waveCount++;
+
+        StartCoroutine(SpawnEnemyWaves(spawnPos));
     }
 
-    private IEnumerator SpawnEnemys(Vector3 spawnPos)
+    private IEnumerator SpawnEnemyWaves(Vector3 spawnPos)
     {
         for (int i = 0; i < spawningEnemys.Count; i++)
         {
-            for (int j = 0; j < spawningEnemys[i].spawnAmount; j++)
-            {
-                GameObject enemy = EnemyPoolingManager.Instance.GetEnemy(spawningEnemys[i].enemyType);
-                enemy.transform.position = spawnPos;
-                if (enemy.TryGetComponent(out Enemy enemyScript))
-                    enemyScript.OnDeathAction += UnRegisterEnemy;
-                enemy.SetActive(true);
+            float newWaveDelay = spawningEnemys[i].SpawnAmount * waveDelayScaling;
 
-                currentEnemyAmount++;
-
-                yield return new WaitForSeconds(spawnDelay);
-            }
+            currentSpawnerAmount++;
+            StartCoroutine(SpawnEnemys(spawnPos, spawningEnemys[i]));
+            yield return new WaitForSeconds(newWaveDelay);
         }
+
         StartCoroutine(IsWaveFinished());
+    }
+
+    private IEnumerator SpawnEnemys(Vector3 spawnPos, WaveManagerEnemyDatas enemyData)
+    {
+        for (int j = 0; j < enemyData.SpawnAmount; j++)
+        {
+            GameObject enemy = EnemyPoolingManager.Instance.GetEnemy(enemyData.EnemyType);
+            enemy.transform.position = spawnPos;
+            if (enemy.TryGetComponent(out Enemy enemyScript))
+            {
+                enemyScript.OnDeathAction += UnRegisterEnemy;
+                enemyScript.InitStats(enemyData.HpScaling, waveCount);
+            }
+            enemy.SetActive(true);
+
+            currentEnemyAmount++;
+
+            yield return new WaitForSeconds(enemyData.SpawnDelay);
+        }
+
+        currentSpawnerAmount--;
     }
 
     private IEnumerator IsWaveFinished()
     {
         yield return new WaitUntil(() =>
             {
-                return currentEnemyAmount == 0;
+                return currentSpawnerAmount == 0 && currentEnemyAmount == 0;
             });
 
         PrepareNextWave();
@@ -87,8 +96,8 @@ public class WaveManager : MonoBehaviour
 
         for (int i = 0; i < spawningEnemys.Count; i++)
         {
-            WaveManagerSpawnDatas data = spawningEnemys[i];
-            data.spawnAmount = Mathf.RoundToInt(data.spawnAmount * amountScaling);
+            WaveManagerEnemyDatas data = spawningEnemys[i];
+            data.SpawnAmount = Mathf.RoundToInt(data.SpawnAmount * data.SpawnAmountScaling);
             spawningEnemys[i] = data;
         }
 
@@ -98,7 +107,7 @@ public class WaveManager : MonoBehaviour
         {
             case 4:
                 {
-                    AddSpawningEnemy();
+                    AddSpawningEnemy(EnemyType.speed);
                     break;
                 }
         }
