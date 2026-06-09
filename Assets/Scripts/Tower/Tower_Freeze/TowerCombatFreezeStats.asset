@@ -22,6 +22,7 @@ MonoBehaviour:
   attackRange: 1.5
   attackSpeed: 2
   attackDamage: 1
+  levelUpRangeScaling: 1
   levelUpAttackScaling: 1
   levelUpSpeedScaling: 0.8
   attackPattern: 0

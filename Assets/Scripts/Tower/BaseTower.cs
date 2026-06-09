@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-public class BaseTower : TowerCombat
+public class BaseTower : TowerCombatShooting
 {
 
-    protected override void Shoot(Transform frontEnemyTransform)
+    protected override void Shoot(Enemy enemy)
     {
         GameObject projectile = ProjectilePoolingManager.Instance.GetProjectile(towerRunTimeCombatStats.projectileType);
 
@@ -11,7 +11,7 @@ public class BaseTower : TowerCombat
 
         if (projectile.TryGetComponent(out IShootable shootable))
         {
-            shootable.SetProjectileValues(towerRunTimeCombatStats.attackDamage, towerRunTimeCombatStats.projecttileSpeed, frontEnemyTransform);
+            shootable.SetProjectileValues(towerRunTimeCombatStats.attackDamage, towerRunTimeCombatStats.projecttileSpeed, enemy);
         }
         projectile.SetActive(true);
     }

@@ -18,10 +18,12 @@ public class ProjectileSlow : Projectile, ISlowable
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform == slowStats.Target)
+        if (collision.transform == slowStats.Target.transform)
         {
+            Vector2 hitPoint = collision.ClosestPoint(transform.position);
+
             if (collision.TryGetComponent(out IDamageable damageable))
-                damageable.Damage(slowStats.Damage);
+                damageable.Damage(slowStats.Damage, hitPoint);
 
             if (collision.TryGetComponent(out ISlowable slowable))
                 slowable.Slow(slowStats.SlowStrength, slowStats.SlowDuration);

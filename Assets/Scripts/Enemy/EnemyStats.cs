@@ -12,6 +12,8 @@ public class EnemyStats : ScriptableObject
     [SerializeField] private int damage;
     [SerializeField] private CurrencyTypes currencyType;
     [SerializeField] private int currencyDropAmount;
+    [SerializeField] private float deathImpulseForce;
+    [SerializeField] private float deathImpulseTime;
 
     public EnemyType EnemyType { get => enemyType; set => enemyType = value; }
     public TowerAttackTypes EnemyTargetType { get => enemyTargetType; }
@@ -22,4 +24,6 @@ public class EnemyStats : ScriptableObject
     public int Damage { get => damage; set => damage = value; }
     public CurrencyTypes CurrencyType { get => currencyType; set => currencyType = value; }
     public int CurrencyDropAmount { get => currencyDropAmount; set => currencyDropAmount = value; }
+    public float DeathImpulsForce { get => deathImpulseForce; set => deathImpulseForce = value; }
+    public float DeathImpulseTime { get => deathImpulseTime; set => deathImpulseTime = value; }
 }

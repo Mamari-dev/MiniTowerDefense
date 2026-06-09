@@ -1,30 +1,21 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public abstract class TowerCombat : Tower
 {
-    [SerializeField] private TowerCombatStats towerCombatStats;
-    protected TowerCombatStats towerRunTimeCombatStats;
-    [SerializeField] private CircleCollider2D towerCollider;
-    [SerializeField] private AttackRangeVisual attackRangeVisual;
+    [SerializeField] protected CircleCollider2D towerCollider;
+    [SerializeField] protected AttackRangeVisual attackRangeVisual;
+    public CircleCollider2D TowerCollider { get => towerCollider; private set => towerCollider = value; }
 
     [SerializeField] private LayerMask enemyLayer;
-    private Dictionary<TowerAttackTypes, List<Enemy>> enemies = new();
+    protected Dictionary<TowerAttackTypes, List<Enemy>> enemies = new();
 
-    #region Editor
-    public TowerCombatStats TowerCombatStats { get => towerCombatStats; }
-    public TowerCombatStats TowerRunTimeCombatStats { get => towerRunTimeCombatStats; }
-    #endregion
 
     protected override void Awake()
     {
         base.Awake();
-        towerRunTimeCombatStats = Instantiate(towerCombatStats);
-        towerCollider.radius = towerRunTimeCombatStats.attackRange;
-        attackRangeVisual.DrawAttackRange(towerRunTimeCombatStats.attackRange);
         attackRangeVisual.EnAndDisableRenderer();
 
         InitDictionay();
@@ -38,7 +29,7 @@ public abstract class TowerCombat : Tower
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (((1 << collision.gameObject.layer) & enemyLayer) != 0 && collision.gameObject.TryGetComponent(out Enemy enemy))
         {
@@ -57,7 +48,7 @@ public abstract class TowerCombat : Tower
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    protected virtual void OnTriggerExit2D(Collider2D collision)
     {
         if (((1 << collision.gameObject.layer) & enemyLayer) != 0 && collision.gameObject.TryGetComponent(out Enemy enemy))
         {
@@ -75,24 +66,7 @@ public abstract class TowerCombat : Tower
         }
     }
 
-    protected virtual IEnumerator AttackCoroutine()
-    {
-        while (enemies[TowerAttackTypes.Health].Count > 0)
-        {
-            List<Enemy> preferedList = GetAttackTargetList();
-            List<Enemy> targetList = GetTargets(preferedList);
-
-            for (int i = 0; i < targetList.Count; i++)
-            {
-                Transform targetTransform = targetList[i].transform;
-                Shoot(targetTransform);
-            }
-
-            yield return new WaitForSeconds(towerRunTimeCombatStats.attackSpeed);
-        }
-    }
-
-    protected abstract void Shoot(Transform frontEnemyTransform);
+    protected abstract IEnumerator AttackCoroutine();
 
     /// <summary>
     /// safety method, sometimes OnExit Triggers not when enemy get disabled
@@ -109,103 +83,5 @@ public abstract class TowerCombat : Tower
             StopAllCoroutines();
     }
 
-    private List<Enemy> GetAttackTargetList()
-    {
-        if (enemies.TryGetValue(towerRunTimeCombatStats.attackTargetTypes, out List<Enemy> enemyList)
-            && enemyList.Count >= towerRunTimeCombatStats.targetAmount)
-            return enemyList;
-        else
-            return enemies[TowerAttackTypes.Health];
-    }
-
-
-
-    private List<Enemy> GetTargets(List<Enemy> enemyList)
-    {
-        List<Enemy> targets = new();
-        int targetAmount = towerRunTimeCombatStats.targetAmount;
-        if (enemyList.Count < targetAmount)
-            targetAmount = enemyList.Count;
-
-        switch (towerRunTimeCombatStats.attackPattern)
-        {
-            case TowerAttackPattern.Front:
-                {
-                    for (int i = 0; i < targetAmount; i++)
-                    {
-                        targets.Add(enemyList[i]);
-                    }
-                    return targets;
-                }
-            case TowerAttackPattern.Back:
-                {
-                    int startIndex = enemyList.Count - 1;
-                    for (int i = 0; i < targetAmount; i++)
-                    {
-                        targets.Add(enemyList[startIndex - i]);
-                    }
-                    return targets;
-                }
-            case TowerAttackPattern.Highest:
-                {
-                    List<Enemy> sortedList = GetHighSortedTargetList(enemyList);
-                    for (int i = 0; i < targetAmount; i++)
-                    {
-                        targets.Add(sortedList[i]);
-                    }
-                    return targets;
-                }
-            case TowerAttackPattern.Lowest:
-                {
-                    List<Enemy> sortedList = GetLowSortedTargetList(enemyList);
-                    for (int i = 0; i < targetAmount; i++)
-                    {
-                        targets.Add(sortedList[i]);
-                    }
-                    return targets;
-                }
-            default:
-                {
-                    Debug.Log("AttackPattern Not Found!");
-                    return enemyList;
-                }
-        }
-    }
-
-    private List<Enemy> GetHighSortedTargetList(List<Enemy> preferedList)
-    {
-        switch (towerRunTimeCombatStats.attackTargetTypes)
-        {
-            case TowerAttackTypes.Health:
-                {
-                    return preferedList.OrderByDescending(enemy => enemy.CopyStats.Health).ToList();
-                }
-            case TowerAttackTypes.Speed:
-                {
-                    return preferedList.OrderByDescending(enemy => enemy.CopyStats.BaseMoveSpeed).ToList();
-                }
-            default:
-                {
-                    Debug.Log("AttackType Not Found!");
-                    return preferedList;
-                }
-        }
-    }
-
-    private List<Enemy> GetLowSortedTargetList(List<Enemy> preferedList)
-    {
-        switch (towerRunTimeCombatStats.attackTargetTypes)
-        {
-            case TowerAttackTypes.Health:
-                {
-                    return preferedList.OrderBy(enemy => enemy.CopyStats.Health).ToList();
-                }
-            case TowerAttackTypes.Speed:
-                {
-                    return preferedList.OrderBy(enemy => enemy.CopyStats.BaseMoveSpeed).ToList();
-                }
-            default:
-                return preferedList;
-        }
-    }
+    public abstract float GetAttackRange();
 }

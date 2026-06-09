@@ -10,27 +10,28 @@ public class Projectile : MonoBehaviour, IShootable
         copyProjectileStats = Instantiate(projectileStats);
     }
 
-    public void SetProjectileValues(float damage, float speed, Transform targetTransform)
+    public void SetProjectileValues(float damage, float speed, Enemy target)
     {
         copyProjectileStats.Damage = damage;
         copyProjectileStats.Speed = speed;
-        copyProjectileStats.Target = targetTransform;
+        copyProjectileStats.Target = target;
     }
 
     private void Update()
     {
-        if (copyProjectileStats.Target != null && copyProjectileStats.Target.gameObject.activeInHierarchy)
-            transform.position = Vector2.MoveTowards(transform.position, copyProjectileStats.Target.position, Time.deltaTime * copyProjectileStats.Speed);
+        if (copyProjectileStats.Target != null && !copyProjectileStats.Target.IsDead)
+            transform.position = Vector2.MoveTowards(transform.position, copyProjectileStats.Target.transform.position, Time.deltaTime * copyProjectileStats.Speed);
         else
             ProjectilePoolingManager.Instance.BackInPool(this.gameObject, copyProjectileStats.projectileType);
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform == copyProjectileStats.Target)
+        if (collision.transform == copyProjectileStats.Target.transform)
         {
+            Vector2 hitPoint = collision.ClosestPoint(transform.position);
             if (collision.TryGetComponent(out IDamageable damageable))
-                damageable.Damage(copyProjectileStats.Damage);
+                damageable.Damage(copyProjectileStats.Damage, hitPoint);
 
             ProjectilePoolingManager.Instance.BackInPool(this.gameObject, copyProjectileStats.projectileType);
         }

@@ -1,16 +1,16 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(TowerCombat), true)]
-public class TowerCombatEditor : Editor
+[CustomEditor(typeof(TowerCombatShooting), true)]
+public class TowerCombatShootingEditor : Editor
 {
-    TowerCombat tower;
+    TowerCombatShooting tower;
     Editor towerBaseEditor;
     Editor towerCombatEditor;
 
     private void OnEnable()
     {
-        tower = (TowerCombat)target;
+        tower = (TowerCombatShooting)target;
     }
 
     public override void OnInspectorGUI()

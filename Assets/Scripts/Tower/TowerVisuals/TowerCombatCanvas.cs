@@ -2,23 +2,25 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TowerCombatCanvas : TowerNonCombatCanvas
+public abstract class TowerCombatCanvas : TowerNonCombatCanvas
 {
-    [SerializeField] private Button button;
+    [SerializeField] private Button upgradeButton;
     [SerializeField] private TextMeshProUGUI towerCurrentLevel;
     [SerializeField] private TextMeshProUGUI towerMaxLevel;
-    [SerializeField] private TextMeshProUGUI attackValue;
-    [SerializeField] private TextMeshProUGUI attackSpeedValue;
+    
     [SerializeField] private TextMeshProUGUI upgradeCostValue;
-    [SerializeField] private Image upgradeImage;
+    [SerializeField] private Image[] upgradeImages;
 
-    private TowerCombatStats towerCombatStats;
+    protected TowerCombatStats towerCombatStats;
 
     protected override void Start()
     {
         base.Start();
-        towerCombatStats = GetComponentInParent<TowerCombat>().TowerRunTimeCombatStats;
-        upgradeImage.color = towerCombatStats.currencyColor;
+
+        for (int i = 0; i < upgradeImages.Length; i++)
+        {
+            upgradeImages[i].color = towerCombatStats.currencyColor;
+        }
 
         UpdateCombatStats();
 
@@ -26,36 +28,31 @@ public class TowerCombatCanvas : TowerNonCombatCanvas
         WaveManager.EndWave += LockButton;
     }
 
-    private void UpdateCombatStats()
+    protected virtual void UpdateCombatStats()
     {
         towerCurrentLevel.text = towerCombatStats.currentLevel.ToString();
         towerMaxLevel.text = towerCombatStats.maxLevel.ToString();
         upgradeCostValue.text = towerCombatStats.upgradeCost.ToString();
-
-        attackValue.text = towerCombatStats.attackDamage.ToString("F2");
-        attackSpeedValue.text = towerCombatStats.attackSpeed.ToString("F2");
     }
 
-    public void OnUpgrade()
+    public virtual void OnUpgrade()
     {
-        if (!CurrencyManager.Instance.CheckCurrencyAmount(towerCombatStats.upgradeCurrencyType, towerCombatStats.upgradeCost)) return;
+        if (CurrencyManager.Instance == null || !CurrencyManager.Instance.CheckCurrencyAmount(towerCombatStats.upgradeCurrencyType, towerCombatStats.upgradeCost)) return;
 
         CurrencyManager.Instance.BuyTower(towerCombatStats.upgradeCurrencyType, towerCombatStats.upgradeCost);
 
         towerCombatStats.currentLevel++;
         towerCombatStats.upgradeCost += towerCombatStats.upgradeCostScaling;
-        towerCombatStats.attackDamage *= towerCombatStats.levelUpAttackScaling;
-        towerCombatStats.attackSpeed *= towerCombatStats.levelUpSpeedScaling;
 
         towerCurrentLevel.text = towerCombatStats.currentLevel.ToString();
         UpdateCombatStats();
 
         if (towerCombatStats.currentLevel == towerCombatStats.maxLevel)
-            button.interactable = false;
+            upgradeButton.interactable = false;
     }
 
     private void LockButton()
     {
-        button.interactable = !button.interactable;
+        upgradeButton.interactable = !upgradeButton.interactable;
     }
 }

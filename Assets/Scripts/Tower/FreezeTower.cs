@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class FreezeTower : TowerCombat
+public class FreezeTower : TowerCombatShooting
 {
     private TowerCombatFreezeStats freezeStats;
     protected override void Awake()
@@ -10,27 +10,20 @@ public class FreezeTower : TowerCombat
         freezeStats = (TowerCombatFreezeStats)towerRunTimeCombatStats;
     }
 
-    protected override void Shoot(Transform frontEnemyTransform)
+    protected override void Shoot(Enemy enemy)
     {
         GameObject projectile = ProjectilePoolingManager.Instance.GetProjectile(towerRunTimeCombatStats.projectileType);
 
         projectile.transform.position = transform.position;
 
-        IShootable shootable = null;
-        ISlowable slowable = null;
-        if (projectile.TryGetComponent(out shootable)
-            && projectile.TryGetComponent(out slowable))
+        if (projectile.TryGetComponent(out IShootable shootable)
+            && projectile.TryGetComponent(out ISlowable slowable))
         {
-            shootable.SetProjectileValues(towerRunTimeCombatStats.attackDamage, towerRunTimeCombatStats.projecttileSpeed, frontEnemyTransform);
+            shootable.SetProjectileValues(towerRunTimeCombatStats.attackDamage, towerRunTimeCombatStats.projecttileSpeed, enemy);
 
             slowable.Slow(freezeStats.slowStrength, freezeStats.slowDuration);
         }
-        else
-        {
-            Debug.Log(projectile.name);
-            Debug.Log(shootable);
-            Debug.Log(slowable);
-        }
+
         projectile.SetActive(true);
     }
 }

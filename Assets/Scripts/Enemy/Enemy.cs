@@ -2,15 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class Enemy : MonoBehaviour, IDamageable, ISlowable
 {
     [SerializeField] private EnemyStats baseStats;
     private EnemyStats copyStats;
+    private Rigidbody2D rb;
 
     private List<Vector3> path;
     private int nextPathPoint = 0;
     private bool isDead = false;
+    public bool IsDead { get => isDead; private set => isDead = value; }
 
     private Coroutine slowCoroutine;
 
@@ -27,6 +31,7 @@ public class Enemy : MonoBehaviour, IDamageable, ISlowable
     private void Awake()
     {
         copyStats = Instantiate(baseStats);
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void OnEnable()
@@ -44,6 +49,8 @@ public class Enemy : MonoBehaviour, IDamageable, ISlowable
         nextPathPoint = 0;
         OnDeathAction = null;
         OnDeathTowerAction = null;
+        rb.linearVelocity = Vector2.zero;
+        transform.rotation = Quaternion.identity;
         if (slowCoroutine != null)
             StopCoroutine(slowCoroutine);
     }
@@ -57,10 +64,11 @@ public class Enemy : MonoBehaviour, IDamageable, ISlowable
 
     private void Update()
     {
-        if (nextPathPoint >= path.Count) return;
+        if (isDead || nextPathPoint >= path.Count) return;
 
         Move();
         CheckWayPoint();
+
     }
 
     private void Move()
@@ -91,7 +99,7 @@ public class Enemy : MonoBehaviour, IDamageable, ISlowable
         }
     }
 
-    public void Damage(float damage)
+    public void Damage(float damage, Vector2 hitPoint)
     {
         if (isDead) return;
 
@@ -102,8 +110,19 @@ public class Enemy : MonoBehaviour, IDamageable, ISlowable
             isDead = true;
             OnDeathAction?.Invoke();
             OnDeathTowerAction?.Invoke(this, copyStats.EnemyTargetType);
-            EnemyPoolingManager.Instance.BackInPool(this.gameObject, copyStats.EnemyType);
+
+            Vector2 knockbackDir = (Vector2)transform.position - hitPoint;
+            rb.linearVelocity = knockbackDir.normalized * copyStats.DeathImpulsForce;
+
+            StartCoroutine(DeathImpulse());
         }
+    }
+
+    private IEnumerator DeathImpulse()
+    {
+        yield return new WaitForSeconds(copyStats.DeathImpulseTime);
+
+        EnemyPoolingManager.Instance.BackInPool(this.gameObject, copyStats.EnemyType);
     }
 
     public void Slow(float slowStrength, float slowDuration)

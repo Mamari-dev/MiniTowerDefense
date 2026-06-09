@@ -19,6 +19,9 @@ public class TowerNonCombatCanvas : MonoBehaviour, IBeginDragHandler, IDragHandl
 
     protected virtual void Start()
     {
+        Tower tower = GetComponentInParent<Tower>();
+        if (tower == null) return;
+
         towerBaseStats = GetComponentInParent<Tower>().TowerRunTimeBaseStats;
 
         UpdateBaseStats();
@@ -45,6 +48,5 @@ public class TowerNonCombatCanvas : MonoBehaviour, IBeginDragHandler, IDragHandl
     {
         Vector3 worldDelta = eventData.delta / Screen.height * Camera.main.orthographicSize * 2f;
         rectTransform.position += worldDelta;
-        //rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
 }

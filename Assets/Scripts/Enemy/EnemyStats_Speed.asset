@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
   enemyType: 1
   enemyTargetType: 3
-  maxHealth: 10
-  currentHealth: 0
+  health: 6
   baseMoveSpeed: 3.5
   currentMoveSpeed: 0
   rotationSpeed: 20
   damage: 1
   currencyType: 2
   currencyDropAmount: 10
+  deathImpulseForce: 5
+  deathImpulseTime: 2

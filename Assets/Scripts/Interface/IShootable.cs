@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface IShootable
 {
-    public void SetProjectileValues(float damage, float speed, Transform targetTransform);
+    public void SetProjectileValues(float damage, float speed, Enemy target);
 }

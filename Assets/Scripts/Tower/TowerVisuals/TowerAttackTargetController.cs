@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TowerAttackTargetController : TowerAttackController
 {
@@ -7,11 +6,12 @@ public class TowerAttackTargetController : TowerAttackController
 
     protected override void SetAttackTarget()
     {
+        if (towerCombatShootingStats == null) return;
         foreach (var targetStruct in attackTargetButtons)
         {
             if (targetStruct.button == lastClickedButton)
             {
-                towerCombatStats.attackTargetTypes = targetStruct.target;
+                towerCombatShootingStats.attackTargetTypes = targetStruct.target;
                 break;
             }
         }
@@ -21,7 +21,7 @@ public class TowerAttackTargetController : TowerAttackController
     {
         foreach (var targetStruct in attackTargetButtons)
         {
-            if (targetStruct.target == towerCombatStats.attackTargetTypes)
+            if (targetStruct.target == towerCombatShootingStats.attackTargetTypes)
             {
                 ChangeButtonColor(targetStruct.button, clickedTypeButtonClickedColor);
                 lastClickedButton = targetStruct.button;

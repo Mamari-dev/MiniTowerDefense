@@ -22,8 +22,10 @@ MonoBehaviour:
   attackRange: 3
   attackSpeed: 1.5
   attackDamage: 4
-  projecttileSpeed: 5
+  levelUpRangeScaling: 1
   levelUpAttackScaling: 1.2
   levelUpSpeedScaling: 0.9
   attackPattern: 0
   attackTargetTypes: 1
+  projectileType: 0
+  projecttileSpeed: 5

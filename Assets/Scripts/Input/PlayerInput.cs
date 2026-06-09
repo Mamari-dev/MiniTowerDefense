@@ -63,7 +63,7 @@ public class PlayerInput : MonoBehaviour
 
         if (towerPlacer.HasGhostTower(ghostTower, ghostTowerStats) && towerPlacer.CheckPlacingConditions(ghostTowerStats, IsPathAvailable))
             PlaceTower();
-        else if(!towerPlacer.HasGhostTower(ghostTower, ghostTowerStats))
+        else if (!towerPlacer.HasGhostTower(ghostTower, ghostTowerStats))
         {
             StopGhostFollowCoroutine();
             CancelPlacement();
@@ -72,7 +72,7 @@ public class PlayerInput : MonoBehaviour
     }
 
     private void PlaceTower()
-    {        
+    {
         Vector3 spawnPos = towerPlacer.BuyTower(ghostTowerStats);
         GameObject newTower = Instantiate(ghostTowerStats.prefab);
         newTower.transform.position = spawnPos;
@@ -151,9 +151,8 @@ public class PlayerInput : MonoBehaviour
         AttackRangeVisual attackRangeVisualDrawer = ghostTower.GetComponentInChildren<AttackRangeVisual>();
         if (attackRangeVisualDrawer != null)
         {
-            TowerCombatStats combatStats = ghostTowerStats.prefab.GetComponent<TowerCombat>().TowerCombatStats;
-            if (combatStats != null)
-                attackRangeVisualDrawer.DrawAttackRange(combatStats.attackRange);
+            if (ghostTowerStats.prefab.TryGetComponent(out TowerCombat towerCombat))
+                attackRangeVisualDrawer.DrawAttackRange(towerCombat.GetAttackRange());
         }
 
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePosition);

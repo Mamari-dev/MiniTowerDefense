@@ -6,11 +6,12 @@ public class TowerAttackTypeController : TowerAttackController
 
     protected override void SetAttackTarget()
     {
+        if (towerCombatShootingStats == null) return;
         foreach (var typeStruct in attackTypeButtons)
         {
             if (typeStruct.button == lastClickedButton)
             {
-                towerCombatStats.attackPattern = typeStruct.type;
+                towerCombatShootingStats.attackPattern = typeStruct.type;
                 break;
             }
         }
@@ -20,7 +21,7 @@ public class TowerAttackTypeController : TowerAttackController
     {
         foreach (var typeStruct in attackTypeButtons)
         {
-            if (typeStruct.type == towerCombatStats.attackPattern)
+            if (typeStruct.type == towerCombatShootingStats.attackPattern)
             {
                 ChangeButtonColor(typeStruct.button, clickedTypeButtonClickedColor);
                 lastClickedButton = typeStruct.button;

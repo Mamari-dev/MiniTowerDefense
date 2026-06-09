@@ -3,5 +3,6 @@ public enum CurrencyTypes
 {
     Mana,
     Red,
-    Yellow
+    Yellow,
+    AOETOWER,
 }

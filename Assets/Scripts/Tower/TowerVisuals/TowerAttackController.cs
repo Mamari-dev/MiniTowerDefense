@@ -6,16 +6,19 @@ public abstract class TowerAttackController : MonoBehaviour
     [SerializeField] protected Color clickedTypeButtonBaseColor;
     [SerializeField] protected Color clickedTypeButtonClickedColor;
 
-    protected TowerCombatStats towerCombatStats;
+    protected TowerCombatShootingStats towerCombatShootingStats;
     protected Button lastClickedButton;
 
     private void Awake()
     {
-        towerCombatStats = GetComponentInParent<TowerCombat>().TowerRunTimeCombatStats;
+        TowerCombatShooting towerCombatShooting = GetComponentInParent<TowerCombatShooting>();
+        if (towerCombatShooting != null)
+            towerCombatShootingStats = towerCombatShooting.TowerRunTimeCombatStats;
     }
 
     private void Start()
     {
+        if (towerCombatShootingStats == null) return;
         InitStartColor();
     }
 
