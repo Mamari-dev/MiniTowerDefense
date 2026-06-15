@@ -16,21 +16,31 @@ public class AoeParticleTrigger : MonoBehaviour
 
     private void OnParticleTrigger()
     {
-        List<ParticleSystem.Particle> hitEnemy = new();
-        ps.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, hitEnemy, out ParticleSystem.ColliderData enterData);
+        List<ParticleSystem.Particle> hitParticle = new();
+        int count = ps.GetTriggerParticles(ParticleSystemTriggerEventType.Inside, hitParticle, out ParticleSystem.ColliderData enterData);
+        
+        if (count == 0) return;
 
-        for (int i = 0; enterData.GetCollider(i, 0); i++)
+        int colliderCount = enterData.GetColliderCount(0);
+        
+        for (int i = 0; i < colliderCount; i++)
         {
-            GameObject hit = enterData.GetCollider(i, 0).gameObject;
+            Collider2D col = enterData.GetCollider(0, i) as Collider2D;
+            if (col == null) continue;
 
+            GameObject hit = col.gameObject;
             if (hittetEnemy.Contains(hit)) continue;
             hittetEnemy.Add(hit);
 
-            Collider2D enemyCollider = enterData.GetCollider(i, 0) as Collider2D;
-            Vector2 hitPoint = enemyCollider.ClosestPoint(transform.position);
+            Vector2 hitPoint = col.ClosestPoint(transform.position);
 
             if (hit.TryGetComponent(out IDamageable damage))
                 damage.Damage(damageValue, hitPoint);
         }
+    }
+
+    private void OnParticleSystemStopped()
+    {
+        hittetEnemy.Clear();
     }
 }

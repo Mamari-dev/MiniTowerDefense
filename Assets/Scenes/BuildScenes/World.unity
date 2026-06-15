@@ -13176,7 +13176,7 @@ MonoBehaviour:
   enemyDatas:
   - EnemyType: 0
     SpawnAmount: 4
-    SpawnDelay: 1
+    SpawnDelay: 0.1
     SpawnAmountScaling: 1.15
     SpawnDelayScaling: 1
     HpScaling: 1.25
