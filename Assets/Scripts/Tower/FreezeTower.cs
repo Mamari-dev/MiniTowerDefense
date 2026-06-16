@@ -12,18 +12,18 @@ public class FreezeTower : TowerCombatShooting
 
     protected override void Shoot(Enemy enemy)
     {
-        GameObject projectile = ProjectilePoolingManager.Instance.GetProjectile(towerRunTimeCombatStats.projectileType);
+        GameObject shot = ProjectilePoolingManager.Instance.GetProjectile(towerRunTimeCombatStats.projectileType);
 
-        projectile.transform.position = transform.position;
+        shot.transform.position = transform.position;
 
-        if (projectile.TryGetComponent(out IShootable shootable)
-            && projectile.TryGetComponent(out ISlowable slowable))
+        if (shot.TryGetComponent(out IBulletShot bulletShot)
+            && shot.TryGetComponent(out IBulletSlowShot bulletFreezeShot))
         {
-            shootable.SetProjectileValues(towerRunTimeCombatStats.attackDamage, towerRunTimeCombatStats.projecttileSpeed, enemy, towerRunTimeCombatStats.damageType);
+            bulletShot.SetBulletValues(towerRunTimeCombatStats.damageType, towerRunTimeCombatStats.attackDamage, enemy, towerRunTimeCombatStats.projecttileSpeed);
 
-            slowable.Slow(freezeStats.slowStrength, freezeStats.slowDuration);
+            bulletFreezeShot.Slow(freezeStats.slowStrength, freezeStats.slowDuration);
         }
 
-        projectile.SetActive(true);
+        shot.SetActive(true);
     }
 }

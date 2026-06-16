@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Projectile : MonoBehaviour, IShootable
+public class Projectile : MonoBehaviour
 {
     [SerializeField] private ProjectileStats baseStats;
     protected ProjectileStats runTimeStats;

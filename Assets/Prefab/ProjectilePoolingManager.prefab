@@ -45,7 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectilePoolingManager
   projectilePrefabs:
-  - projectilePrefab: {fileID: 8391933296006719694, guid: 32abaf5fa46b21a498da9210a56aa13a, type: 3}
+  - projectilePrefab: {fileID: 604767915878963159, guid: 74848ba358765c240b21d8c0551dd4d5, type: 3}
     projectileTypes: 0
-  - projectilePrefab: {fileID: 8461006689659197221, guid: 65fe69a1a5ab41e42b8a2ab844a28764, type: 3}
+  - projectilePrefab: {fileID: 7628746426709817347, guid: 4ea37b6280ec4b945802b65d84d35559, type: 3}
     projectileTypes: 1
+  - projectilePrefab: {fileID: 2845463794789993501, guid: 00808d04dda622f42a9e92651a6c3f18, type: 3}
+    projectileTypes: 2

@@ -16,7 +16,7 @@ MonoBehaviour:
   enemyTargetType: 5
   health: 10
   armored: 1
-  armoredMultiplier: 0
+  armoredMultiplier: 2
   baseMoveSpeed: 1.5
   currentMoveSpeed: 0
   rotationSpeed: 10

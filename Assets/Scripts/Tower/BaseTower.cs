@@ -5,14 +5,14 @@ public class BaseTower : TowerCombatShooting
 
     protected override void Shoot(Enemy enemy)
     {
-        GameObject projectile = ProjectilePoolingManager.Instance.GetProjectile(towerRunTimeCombatStats.projectileType);
+        GameObject shot = ProjectilePoolingManager.Instance.GetProjectile(towerRunTimeCombatStats.projectileType);
 
-        projectile.transform.position = transform.position;
+        shot.transform.position = transform.position;
 
-        if (projectile.TryGetComponent(out IShootable shootable))
+        if (shot.TryGetComponent(out IBulletShot bulletShot))
         {
-            shootable.SetProjectileValues(towerRunTimeCombatStats.attackDamage, towerRunTimeCombatStats.projecttileSpeed, enemy, towerRunTimeCombatStats.damageType);
+            bulletShot.SetBulletValues(towerRunTimeCombatStats.damageType, towerRunTimeCombatStats.attackDamage, enemy, towerRunTimeCombatStats.projecttileSpeed);
         }
-        projectile.SetActive(true);
+        shot.SetActive(true);
     }
 }

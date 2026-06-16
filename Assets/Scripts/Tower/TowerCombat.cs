@@ -44,7 +44,7 @@ public abstract class TowerCombat : Tower
             }
             enemy.OnDeathTowerAction += RemoveDeadEnemy;
 
-            if (enemies[TowerAttackTypes.Health].Count == 1 && attackCoroutine == null)
+            if (enemies[TowerAttackTypes.Health].Count > 0 && attackCoroutine == null)
                 attackCoroutine = StartCoroutine(AttackCoroutine());
         }
     }
@@ -61,9 +61,6 @@ public abstract class TowerCombat : Tower
                     enemies[type].Remove(enemy);
             }
             enemy.OnDeathTowerAction -= RemoveDeadEnemy;
-
-            //if (enemies[TowerAttackTypes.Health].Count == 0)
-            //    StopAllCoroutines();
         }
     }
 
@@ -79,9 +76,6 @@ public abstract class TowerCombat : Tower
             if (enemyFlags.HasFlag(type) && enemies[type].Contains(enemy))
                 enemies[type].Remove(enemy);
         }
-
-        if (enemies[TowerAttackTypes.Health].Count == 0)
-            StopAllCoroutines();
     }
 
     public abstract float GetAttackRange();

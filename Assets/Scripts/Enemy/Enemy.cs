@@ -2,14 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(CircleCollider2D))]
 public class Enemy : MonoBehaviour, IDamageable, ISlowable
 {
     [SerializeField] private EnemyStats baseStats;
     private EnemyStats copyStats;
     private Rigidbody2D rb;
+    private CircleCollider2D col;
 
     private List<Vector3> path;
     private int nextPathPoint = 0;
@@ -32,11 +33,13 @@ public class Enemy : MonoBehaviour, IDamageable, ISlowable
     {
         copyStats = Instantiate(baseStats);
         rb = GetComponent<Rigidbody2D>();
+        col = GetComponent<CircleCollider2D>();
     }
 
     private void OnEnable()
     {
         isDead = false;
+        col.enabled = true;
         path = new(MapManager.Instance.CurrentWorldPath);
         copyStats.CurrentMoveSpeed = copyStats.BaseMoveSpeed;
 
@@ -90,6 +93,7 @@ public class Enemy : MonoBehaviour, IDamageable, ISlowable
             if (nextPathPoint >= path.Count)
             {
                 isDead = true;
+                col.enabled = false;
                 GameManager.Instance.Damage(copyStats.Damage);
                 HealthManager.Instance.GetDamage();
                 OnDeathAction?.Invoke();
@@ -111,6 +115,7 @@ public class Enemy : MonoBehaviour, IDamageable, ISlowable
         if (copyStats.Health <= 0)
         {
             isDead = true;
+            col.enabled = false;
             OnDeathAction?.Invoke();
             OnDeathTowerAction?.Invoke(this, copyStats.EnemyTargetType);
 
