@@ -19,7 +19,7 @@ public class FreezeTower : TowerCombatShooting
         if (projectile.TryGetComponent(out IShootable shootable)
             && projectile.TryGetComponent(out ISlowable slowable))
         {
-            shootable.SetProjectileValues(towerRunTimeCombatStats.attackDamage, towerRunTimeCombatStats.projecttileSpeed, enemy);
+            shootable.SetProjectileValues(towerRunTimeCombatStats.attackDamage, towerRunTimeCombatStats.projecttileSpeed, enemy, towerRunTimeCombatStats.damageType);
 
             slowable.Slow(freezeStats.slowStrength, freezeStats.slowDuration);
         }

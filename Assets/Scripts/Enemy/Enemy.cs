@@ -99,9 +99,12 @@ public class Enemy : MonoBehaviour, IDamageable, ISlowable
         }
     }
 
-    public void Damage(float damage, Vector2 hitPoint)
+    public void Damage(float damage, Vector2 hitPoint, TowerDamageType damageType)
     {
         if (isDead) return;
+
+        if (copyStats.Armored && damageType == TowerDamageType.armored)
+            damage *= copyStats.ArmoredMultiplier;
 
         copyStats.Health -= damage;
 

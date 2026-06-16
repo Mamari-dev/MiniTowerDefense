@@ -11,6 +11,7 @@ public abstract class TowerCombat : Tower
 
     [SerializeField] private LayerMask enemyLayer;
     protected Dictionary<TowerAttackTypes, List<Enemy>> enemies = new();
+    protected Coroutine attackCoroutine = null;
 
 
     protected override void Awake()
@@ -43,8 +44,8 @@ public abstract class TowerCombat : Tower
             }
             enemy.OnDeathTowerAction += RemoveDeadEnemy;
 
-            if (enemies[TowerAttackTypes.Health].Count == 1)
-                StartCoroutine(AttackCoroutine());
+            if (enemies[TowerAttackTypes.Health].Count == 1 && attackCoroutine == null)
+                attackCoroutine = StartCoroutine(AttackCoroutine());
         }
     }
 
@@ -61,8 +62,8 @@ public abstract class TowerCombat : Tower
             }
             enemy.OnDeathTowerAction -= RemoveDeadEnemy;
 
-            if (enemies[TowerAttackTypes.Health].Count == 0)
-                StopAllCoroutines();
+            //if (enemies[TowerAttackTypes.Health].Count == 0)
+            //    StopAllCoroutines();
         }
     }
 

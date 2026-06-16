@@ -6,6 +6,8 @@ public class EnemyStats : ScriptableObject
     [SerializeField] private EnemyType enemyType;
     [SerializeField] private TowerAttackTypes enemyTargetType;
     [SerializeField] private float health;
+    [SerializeField] private bool armored;
+    [SerializeField] private float armoredMultiplier;
     [SerializeField] private float baseMoveSpeed;
     [SerializeField] private float currentMoveSpeed;
     [SerializeField] private float rotationSpeed;
@@ -18,6 +20,8 @@ public class EnemyStats : ScriptableObject
     public EnemyType EnemyType { get => enemyType; set => enemyType = value; }
     public TowerAttackTypes EnemyTargetType { get => enemyTargetType; }
     public float Health { get => health; set => health = value; }
+    public bool Armored { get => armored; set => armored = value; }
+    public float ArmoredMultiplier { get => armoredMultiplier; set => armoredMultiplier = value; }
     public float BaseMoveSpeed { get => baseMoveSpeed; set => baseMoveSpeed = value; }
     public float CurrentMoveSpeed { get => currentMoveSpeed; set => currentMoveSpeed = value; }
     public float RotationSpeed { get => rotationSpeed; set => rotationSpeed = value; }

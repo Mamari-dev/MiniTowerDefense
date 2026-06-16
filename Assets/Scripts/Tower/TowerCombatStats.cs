@@ -10,4 +10,14 @@ public abstract class TowerCombatStats : ScriptableObject
     public int upgradeCost;
 
     public int upgradeCostScaling;
+
+    [Header("Tower Combat Values")]
+    public TowerDamageType damageType;
+    public float attackRange;
+    public float attackSpeed;
+    public float attackDamage;
+
+    public float levelUpRangeScaling;
+    public float levelUpAttackScaling;
+    public float levelUpSpeedScaling;
 }

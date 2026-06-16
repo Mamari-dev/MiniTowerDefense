@@ -41,6 +41,8 @@ public class TowerCombatShootingCanvas : TowerCombatCanvas
 
     public override void OnUpgrade()
     {
+        if (!Upgradeable()) return;
+
         base.OnUpgrade();
 
         towerCombatShootingStats.attackDamage *= towerCombatShootingStats.levelUpAttackScaling;

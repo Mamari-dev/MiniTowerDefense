@@ -13,7 +13,7 @@ public class AoeTower : TowerCombatPulsing
 
         trigger = GetComponentInChildren<AoeParticleTrigger>();
         if (trigger != null)
-            trigger.Init(towerRunTimeCombatStats.attackDamage);
+            trigger.Init(towerRunTimeCombatStats.attackDamage, towerRunTimeCombatStats.damageType);
     }
 
     protected override IEnumerator AttackCoroutine()
@@ -21,13 +21,14 @@ public class AoeTower : TowerCombatPulsing
         var psMain = pS.main;
         psMain.startSize = new ParticleSystem.MinMaxCurve(towerRunTimeCombatStats.attackRange * 2);
 
-        while (true)
+        while (enemies[TowerAttackTypes.Health].Count == 1)
         {
-            trigger.HittetEnemy.Clear();
             pS.Play();
 
             yield return new WaitForSeconds(towerRunTimeCombatStats.attackSpeed);
         }
+
+        attackCoroutine = null;
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)

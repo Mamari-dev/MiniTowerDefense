@@ -35,6 +35,8 @@ public abstract class TowerCombatShooting : TowerCombat
 
             yield return new WaitForSeconds(towerRunTimeCombatStats.attackSpeed);
         }
+
+        attackCoroutine = null;
     }
 
     protected abstract void Shoot(Enemy enemy);

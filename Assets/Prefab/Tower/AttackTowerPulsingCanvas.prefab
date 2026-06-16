@@ -2476,8 +2476,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TowerCombatShootingCanvas, Assembly-CSharp
+      - m_Target: {fileID: 6023743524844090074}
+        m_TargetAssemblyTypeName: TowerCombatPulsingCanvas, Assembly-CSharp
         m_MethodName: OnUpgrade
         m_Mode: 1
         m_Arguments:

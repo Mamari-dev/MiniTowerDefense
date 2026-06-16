@@ -2,5 +2,6 @@
 public enum EnemyType
 {
     normal,
-    speed
+    speed,
+    armor
 }

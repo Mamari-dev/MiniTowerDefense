@@ -36,9 +36,7 @@ public abstract class TowerCombatCanvas : TowerNonCombatCanvas
     }
 
     public virtual void OnUpgrade()
-    {
-        if (CurrencyManager.Instance == null || !CurrencyManager.Instance.CheckCurrencyAmount(towerCombatStats.upgradeCurrencyType, towerCombatStats.upgradeCost)) return;
-
+    {        
         CurrencyManager.Instance.BuyTower(towerCombatStats.upgradeCurrencyType, towerCombatStats.upgradeCost);
 
         towerCombatStats.currentLevel++;
@@ -49,6 +47,13 @@ public abstract class TowerCombatCanvas : TowerNonCombatCanvas
 
         if (towerCombatStats.currentLevel == towerCombatStats.maxLevel)
             upgradeButton.interactable = false;
+    }
+
+    protected bool Upgradeable()
+    {
+        if (CurrencyManager.Instance == null || !CurrencyManager.Instance.CheckCurrencyAmount(towerCombatStats.upgradeCurrencyType, towerCombatStats.upgradeCost))
+            return false;
+        return true;
     }
 
     private void LockButton()

@@ -11,7 +11,7 @@ public class BaseTower : TowerCombatShooting
 
         if (projectile.TryGetComponent(out IShootable shootable))
         {
-            shootable.SetProjectileValues(towerRunTimeCombatStats.attackDamage, towerRunTimeCombatStats.projecttileSpeed, enemy);
+            shootable.SetProjectileValues(towerRunTimeCombatStats.attackDamage, towerRunTimeCombatStats.projecttileSpeed, enemy, towerRunTimeCombatStats.damageType);
         }
         projectile.SetActive(true);
     }

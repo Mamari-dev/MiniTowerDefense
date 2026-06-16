@@ -110,6 +110,11 @@ public class WaveManager : MonoBehaviour
                     AddSpawningEnemy(EnemyType.speed);
                     break;
                 }
+            case 8:
+                {
+                    AddSpawningEnemy(EnemyType.armor);
+                    break;
+                }
         }
     }
 

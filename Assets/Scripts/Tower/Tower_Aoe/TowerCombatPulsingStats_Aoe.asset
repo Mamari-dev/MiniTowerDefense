@@ -15,9 +15,10 @@ MonoBehaviour:
   currentLevel: 1
   maxLevel: 10
   upgradeCurrencyType: 3
-  currencyColor: {r: 1, g: 1, b: 1, a: 1}
+  currencyColor: {r: 0.5647059, g: 0.24313726, b: 0, a: 1}
   upgradeCost: 30
   upgradeCostScaling: 5
+  damageType: 1
   attackRange: 1.5
   attackSpeed: 2
   attackDamage: 2

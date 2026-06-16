@@ -141,4 +141,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa79c29d85797e54489cb2ce147c523c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
-  projectileStats: {fileID: 11400000, guid: 916d7a58f0b7d124d92cf00bdd43942f, type: 2}
+  baseStats: {fileID: 11400000, guid: 916d7a58f0b7d124d92cf00bdd43942f, type: 2}

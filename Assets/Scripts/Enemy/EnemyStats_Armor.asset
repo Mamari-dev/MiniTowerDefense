@@ -10,16 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1dfbad1c0c65ceb409725c9876153d47, type: 3}
-  m_Name: EnemyStats_Speed
+  m_Name: EnemyStats_Armor
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
-  enemyType: 1
-  enemyTargetType: 3
-  health: 6
-  baseMoveSpeed: 3.5
+  enemyType: 2
+  enemyTargetType: 5
+  health: 10
+  armored: 1
+  armoredMultiplier: 0
+  baseMoveSpeed: 1.5
   currentMoveSpeed: 0
-  rotationSpeed: 20
+  rotationSpeed: 10
   damage: 1
-  currencyType: 2
+  currencyType: 3
   currencyDropAmount: 10
   deathImpulseForce: 20
-  deathImpulseTime: 2
+  deathImpulseTime: 5

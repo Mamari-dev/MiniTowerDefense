@@ -49,3 +49,5 @@ MonoBehaviour:
     enemyType: 0
   - enemyPrefab: {fileID: 1077100173969167184, guid: 47839447eac04da4491dd2dc9937b427, type: 3}
     enemyType: 1
+  - enemyPrefab: {fileID: 4991974407773908249, guid: aee3beddd1fa9e141934aa8fa154ebe5, type: 3}
+    enemyType: 2

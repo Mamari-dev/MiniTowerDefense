@@ -6,12 +6,12 @@ public class AoeParticleTrigger : MonoBehaviour
     [SerializeField] private ParticleSystem ps;
     private HashSet<GameObject> hittetEnemy = new();
     private float damageValue;
+    private TowerDamageType damageType;
 
-    public HashSet<GameObject> HittetEnemy { get => hittetEnemy; set => hittetEnemy = value; }
-
-    public void Init(float damageValue)
+    public void Init(float damageValue, TowerDamageType damageType)
     {
         this.damageValue = damageValue;
+        this.damageType = damageType;
     }
 
     private void OnParticleTrigger()
@@ -35,7 +35,7 @@ public class AoeParticleTrigger : MonoBehaviour
             Vector2 hitPoint = col.ClosestPoint(transform.position);
 
             if (hit.TryGetComponent(out IDamageable damage))
-                damage.Damage(damageValue, hitPoint);
+                damage.Damage(damageValue, hitPoint, damageType);
         }
     }
 

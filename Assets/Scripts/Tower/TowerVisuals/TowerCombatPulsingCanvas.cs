@@ -41,6 +41,8 @@ public class TowerCombatPulsingCanvas : TowerCombatCanvas
 
     public override void OnUpgrade()
     {
+        if (!Upgradeable()) return;
+
         base.OnUpgrade();
 
         towerCombatPulsingStats.attackDamage *= towerCombatPulsingStats.levelUpAttackScaling;
