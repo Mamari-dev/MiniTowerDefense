@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac8e4f8555dad004ca62daa2489c06be, type: 3}
+  m_Name: TowerCombatShockStats
+  m_EditorClassIdentifier: Assembly-CSharp::TowerCombatBounceStats
+  currentLevel: 1
+  maxLevel: 10
+  upgradeCurrencyType: 4
+  currencyColor: {r: 0.5568628, g: 0, b: 0.85882354, a: 1}
+  upgradeCost: 30
+  upgradeCostScaling: 5
+  damageType: 2
+  attackRange: 3.5
+  attackSpeed: 2
+  attackDamage: 8
+  levelUpRangeScaling: 1.2
+  levelUpAttackScaling: 1.15
+  levelUpSpeedScaling: 0.95
+  targetAmount: 1
+  attackPattern: 0
+  attackTargetTypes: 8
+  shotType: 3
+  shotSpeed: 3
+  bounceAmount: 3
+  bounceRange: 2

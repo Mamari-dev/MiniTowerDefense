@@ -8,7 +8,7 @@ public class AoeTower : TowerCombatPulsing
     {
         while (enemies[TowerAttackTypes.Health].Count > 0)
         {
-            GameObject shot = ProjectilePoolingManager.Instance.GetProjectile(towerRunTimeCombatStats.ProjectileType);
+            GameObject shot = ShotPoolingManager.Instance.GetProjectile(towerRunTimeCombatStats.ProjectileType);
             shot.transform.position = transform.position;
 
             if (shot.TryGetComponent(out IParticleShot particleShot))

@@ -92,6 +92,6 @@ public class ShotParticle : Shot, IParticleShot
     private void OnParticleSystemStopped()
     {
         hittetEnemy.Clear();
-        ProjectilePoolingManager.Instance.BackInPool(this.gameObject, particleStats.ProjectileType);
+        ShotPoolingManager.Instance.BackInPool(this.gameObject, particleStats.ProjectileType);
     }
 }

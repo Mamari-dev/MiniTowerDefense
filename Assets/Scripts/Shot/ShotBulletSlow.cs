@@ -28,7 +28,7 @@ public class ShotBulletSlow : ShotBullet, IBulletSlowShot
             if (collision.TryGetComponent(out ISlowable slowable))
                 slowable.Slow(slowStats.SlowStrength, slowStats.SlowDuration);
 
-            ProjectilePoolingManager.Instance.BackInPool(this.gameObject, runTimeStats.ProjectileType);
+            ShotPoolingManager.Instance.BackInPool(this.gameObject, runTimeStats.ProjectileType);
         }
     }
 }

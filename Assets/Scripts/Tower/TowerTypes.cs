@@ -5,5 +5,6 @@ public enum TowerTypes
     BlockTower,
     BaseTower,
     FreezeTower,
-    AoeTower
+    AoeTower,
+    ShockTower
 }

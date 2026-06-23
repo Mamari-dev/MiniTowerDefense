@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "TowerBaseStats", menuName = "Scriptable Objects/TowerBaseStats")]
+[CreateAssetMenu(fileName = "TowerBaseStats", menuName = "Scriptable Objects/Tower/TowerBaseStats")]
 public class TowerBaseStats : ScriptableObject
 {
     [Header("Tower Base Values")]

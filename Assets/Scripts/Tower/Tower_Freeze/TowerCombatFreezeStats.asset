@@ -18,16 +18,17 @@ MonoBehaviour:
   currencyColor: {r: 1, g: 0.9254902, b: 0, a: 1}
   upgradeCost: 20
   upgradeCostScaling: 5
-  targetAmount: 2
+  damageType: 0
   attackRange: 1.5
   attackSpeed: 2
   attackDamage: 1
   levelUpRangeScaling: 1
   levelUpAttackScaling: 1
   levelUpSpeedScaling: 0.8
+  targetAmount: 2
   attackPattern: 0
   attackTargetTypes: 2
-  projectileType: 1
-  projecttileSpeed: 5
+  shotType: 0
+  shotSpeed: 5
   slowStrength: 0.5
   slowDuration: 2

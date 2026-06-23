@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb9d850faa78ebf4aaba300df4e01ca7, type: 3}
+  m_Name: TowerBaseStats_Shock
+  m_EditorClassIdentifier: Assembly-CSharp::TowerBaseStats
+  towerType: 0
+  towerIcon: {fileID: 21300000, guid: 2c677c592596192468a512d7e0150b83, type: 3}
+  towerDescription: Bzzzz Bzzzzzzz Bzz
+  iconColor: {r: 0.5568628, g: 0, b: 0.85882354, a: 1}
+  currencyType: 0
+  cost: 3
+  prefab: {fileID: 0}
+  ghostPrefab: {fileID: 0}

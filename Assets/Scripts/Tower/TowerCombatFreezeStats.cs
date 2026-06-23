@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "TowerCombatFreezeStats", menuName = "Scriptable Objects/TowerCombatFreezeStats")]
+[CreateAssetMenu(fileName = "TowerCombatFreezeStats", menuName = "Scriptable Objects/Tower/TowerCombatFreezeStats")]
 public class TowerCombatFreezeStats : TowerCombatShootingStats
 {
     [Header("SlowValues")]

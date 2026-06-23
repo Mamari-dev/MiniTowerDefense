@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "TowerCombatShootingStats", menuName = "Scriptable Objects/TowerCombatShootingStats")]
+[CreateAssetMenu(fileName = "TowerCombatShootingStats", menuName = "Scriptable Objects/Tower/TowerCombatShootingStats")]
 public class TowerCombatShootingStats : TowerCombatStats
 {
     public int targetAmount;
@@ -9,6 +9,6 @@ public class TowerCombatShootingStats : TowerCombatStats
     public TowerAttackTypes attackTargetTypes;
 
     [Header("Projectile Values")]
-    public ProjectileTypes projectileType;
-    public float projecttileSpeed;
+    public ShotTypes shotType;
+    public float shotSpeed;
 }
