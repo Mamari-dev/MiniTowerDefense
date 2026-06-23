@@ -115,6 +115,11 @@ public class WaveManager : MonoBehaviour
                     AddSpawningEnemy(EnemyType.armor);
                     break;
                 }
+            case 12:
+                {
+                    AddSpawningEnemy(EnemyType.shield);
+                    break;
+                }
         }
     }
 

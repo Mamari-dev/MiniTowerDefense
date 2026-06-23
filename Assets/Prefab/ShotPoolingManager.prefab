@@ -51,3 +51,5 @@ MonoBehaviour:
     projectileTypes: 1
   - projectilePrefab: {fileID: 2845463794789993501, guid: 00808d04dda622f42a9e92651a6c3f18, type: 3}
     projectileTypes: 2
+  - projectilePrefab: {fileID: 3118896831034708895, guid: 498dd8d89c3cdcd448756b44f7805bac, type: 3}
+    projectileTypes: 3
