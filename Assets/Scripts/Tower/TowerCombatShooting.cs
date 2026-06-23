@@ -5,18 +5,13 @@ using UnityEngine;
 
 public abstract class TowerCombatShooting : TowerCombat
 {
-    [SerializeField] private TowerCombatShootingStats towerCombatStats;
     protected TowerCombatShootingStats towerRunTimeCombatStats;
-
-    #region Editor
-    public TowerCombatShootingStats TowerCombatStats { get => towerCombatStats; }
     public TowerCombatShootingStats TowerRunTimeCombatStats { get => towerRunTimeCombatStats; }
-    #endregion
 
     protected override void Awake()
     {
         base.Awake();
-        towerRunTimeCombatStats = Instantiate(towerCombatStats);
+        towerRunTimeCombatStats = (TowerCombatShootingStats)towerRunTimeBaseStats;
         towerCollider.radius = towerRunTimeCombatStats.attackRange;
         attackRangeVisual.DrawAttackRange(towerRunTimeCombatStats.attackRange);
     }
@@ -141,10 +136,16 @@ public abstract class TowerCombatShooting : TowerCombat
         }
     }
 
-#endregion
+    #endregion
 
     public override float GetAttackRange()
     {
-        return towerCombatStats.attackRange;
+        if (towerRunTimeCombatStats == null)
+        {
+            TowerCombatStats combatStat = (TowerCombatStats)TowerBaseStats;
+            return combatStat.attackRange;
+        }
+
+        return towerRunTimeCombatStats.attackRange;
     }
 }

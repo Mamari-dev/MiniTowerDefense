@@ -12,6 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef81af6e94a360e4e8c26e1e081728bf, type: 3}
   m_Name: TowerCombatFreezeStats
   m_EditorClassIdentifier: Assembly-CSharp::TowerCombatFreezeStats
+  towerType: 3
+  towerIcon: {fileID: 21300000, guid: 6f4e754dbe1904f4bab92c803cabe166, type: 3}
+  towerDescription: i slow enemys.. a little bit.. ^-^
+  iconColor: {r: 0, g: 0.42745098, b: 1, a: 1}
+  currencyType: 0
+  cost: 2
+  prefab: {fileID: 2753071936567417082, guid: 29ce2b1aabc59254781989a29cee52a4, type: 3}
+  ghostPrefab: {fileID: 1479809554143510159, guid: d00db0ca63514f043895202a843134ca, type: 3}
   currentLevel: 1
   maxLevel: 10
   upgradeCurrencyType: 2
@@ -28,7 +36,7 @@ MonoBehaviour:
   targetAmount: 2
   attackPattern: 0
   attackTargetTypes: 2
-  shotType: 0
+  shotType: 1
   shotSpeed: 5
   slowStrength: 0.5
   slowDuration: 2

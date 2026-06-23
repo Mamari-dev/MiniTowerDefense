@@ -22,10 +22,7 @@ public class ShotBullet : Shot, IBulletShot
         if (bulletStats.Target != null && !bulletStats.Target.IsDead)
             transform.position = Vector2.MoveTowards(transform.position, bulletStats.Target.transform.position, Time.deltaTime * bulletStats.Speed);
         else
-        {
             ShotPoolingManager.Instance.BackInPool(this.gameObject, runTimeStats.ProjectileType);
-            Debug.Log("Update Back in Pool");
-        }
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)

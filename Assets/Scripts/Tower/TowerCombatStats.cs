@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class TowerCombatStats : ScriptableObject
+public abstract class TowerCombatStats : TowerBaseStats
 {
     [Header("Tower Upgrade Values")]
     public int currentLevel = 1;

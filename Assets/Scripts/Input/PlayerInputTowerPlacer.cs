@@ -1,8 +1,5 @@
 using System;
-using System.Runtime.InteropServices.WindowsRuntime;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PlayerInputTowerPlacer
 {
@@ -101,10 +98,13 @@ public class PlayerInputTowerPlacer
 
     private void ChangeAttackRangeVisual(GameObject clickedTower)
     {
-        AttackRangeVisual attackRangeVisual;
-        attackRangeVisual = clickedTower.GetComponentInChildren<AttackRangeVisual>();
+        CircleCollider2D collider = clickedTower.GetComponent<CircleCollider2D>();
+        AttackRangeVisual attackRangeVisual = clickedTower.GetComponentInChildren<AttackRangeVisual>();
         if (attackRangeVisual != null)
+        {
+            attackRangeVisual.DrawAttackRange(collider.radius);
             attackRangeVisual.EnAndDisableRenderer();
+        }
     }
 
     private void ChangeTowerCanvas(GameObject clickedTower)

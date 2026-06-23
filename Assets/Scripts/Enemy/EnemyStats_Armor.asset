@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
   enemyType: 2
   enemyTargetType: 5
-  health: 10
+  health: 15
   armored: 1
   armoredMultiplier: 2
+  shielded: 0
+  shieldedMultiplier: 0
   baseMoveSpeed: 1.5
   currentMoveSpeed: 0
   rotationSpeed: 10

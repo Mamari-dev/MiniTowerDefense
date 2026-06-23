@@ -1,8 +1,8 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(Tower))]
-public class TowerBaseEditor : Editor
+[CustomEditor(typeof(Tower), true)]
+public class TowerEditor : Editor
 {
     Tower tower;
     Editor towerEditor;

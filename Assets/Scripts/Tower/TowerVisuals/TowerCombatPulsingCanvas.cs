@@ -34,20 +34,31 @@ public class TowerCombatPulsingCanvas : TowerCombatCanvas
 
     private void UpdateNextLevelStats()
     {
-        nextAttackValue.text = (towerCombatPulsingStats.attackDamage * towerCombatPulsingStats.levelUpAttackScaling).ToString("F2");
-        nextAttackSpeedValue.text = (towerCombatPulsingStats.attackSpeed * towerCombatPulsingStats.levelUpSpeedScaling).ToString("F2");
-        nextAttackRangeValue.text = (towerCombatPulsingStats.attackRange * towerCombatPulsingStats.levelUpRangeScaling).ToString("F2");
+        if (towerCombatStats.currentLevel != towerCombatStats.maxLevel)
+        {
+            nextAttackValue.text = (towerCombatPulsingStats.attackDamage * towerCombatPulsingStats.levelUpAttackScaling).ToString("F2");
+            nextAttackSpeedValue.text = (towerCombatPulsingStats.attackSpeed * towerCombatPulsingStats.levelUpSpeedScaling).ToString("F2");
+            nextAttackRangeValue.text = (towerCombatPulsingStats.attackRange * towerCombatPulsingStats.levelUpRangeScaling).ToString("F2");
+        }
+        else
+        {
+            nextAttackValue.text = maxLevelString;
+            nextAttackSpeedValue.text = maxLevelString;
+            nextAttackRangeValue.text = maxLevelString;
+        }
     }
 
     public override void OnUpgrade()
     {
         if (!Upgradeable()) return;
 
-        base.OnUpgrade();
-
         towerCombatPulsingStats.attackDamage *= towerCombatPulsingStats.levelUpAttackScaling;
         towerCombatPulsingStats.attackSpeed *= towerCombatPulsingStats.levelUpSpeedScaling;
+        towerCombatPulsingStats.attackRange *= towerCombatPulsingStats.levelUpRangeScaling;
 
+        base.OnUpgrade();
+
+        UpdateCombatStats();
         UpdateNextLevelStats();
     }
 }

@@ -336,7 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a62f8527a3bdfe7449ac8b7bc159d239, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  baseStats: {fileID: 0}
+  baseStats: {fileID: 11400000, guid: 1fd54d34cec87654d9c7c40b02f9da53, type: 2}
   foldout: 1
 --- !u!1 &8559888979495211700
 GameObject:

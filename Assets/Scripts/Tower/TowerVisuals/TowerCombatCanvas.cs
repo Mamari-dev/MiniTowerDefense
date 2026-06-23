@@ -11,11 +11,18 @@ public abstract class TowerCombatCanvas : TowerNonCombatCanvas
     [SerializeField] private TextMeshProUGUI upgradeCostValue;
     [SerializeField] private Image[] upgradeImages;
 
+    protected string maxLevelString = "Max";
+
     protected TowerCombatStats towerCombatStats;
+    private CircleCollider2D circleCollider;
+    private AttackRangeVisual attackRangeVisual;
 
     protected override void Start()
     {
         base.Start();
+
+        circleCollider = GetComponentInParent<CircleCollider2D>();
+        attackRangeVisual = transform.parent.GetComponentInChildren<AttackRangeVisual>();
 
         for (int i = 0; i < upgradeImages.Length; i++)
         {
@@ -43,10 +50,13 @@ public abstract class TowerCombatCanvas : TowerNonCombatCanvas
         towerCombatStats.upgradeCost += towerCombatStats.upgradeCostScaling;
 
         towerCurrentLevel.text = towerCombatStats.currentLevel.ToString();
-        UpdateCombatStats();
 
         if (towerCombatStats.currentLevel == towerCombatStats.maxLevel)
             upgradeButton.interactable = false;
+
+        circleCollider.radius = towerCombatStats.attackRange;
+
+        attackRangeVisual.DrawAttackRange(towerCombatStats.attackRange);
     }
 
     protected bool Upgradeable()

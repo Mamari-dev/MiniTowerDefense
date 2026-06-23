@@ -40,8 +40,8 @@ public class Enemy : MonoBehaviour, IDamageable, ISlowable
     {
         isDead = false;
         col.enabled = true;
-        path = new(MapManager.Instance.CurrentWorldPath);
         copyStats.CurrentMoveSpeed = copyStats.BaseMoveSpeed;
+        path = new(MapManager.Instance.CurrentWorldPath);
 
         OnDeathAction += DropCurrency;
     }

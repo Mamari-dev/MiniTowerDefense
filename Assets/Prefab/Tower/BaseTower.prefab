@@ -299,14 +299,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 291a4c44f18e6514e88592aad1a71e31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BaseTower
-  towerBaseStats: {fileID: 11400000, guid: 5aa38719eef94f742963403cde506502, type: 2}
+  towerBaseStats: {fileID: 11400000, guid: eac04cac25aeaba42aa5af02fd468c8e, type: 2}
   foldout: 1
   towerCollider: {fileID: 1461604335722588906}
   attackRangeVisual: {fileID: 6239478496316656515}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 2048
-  towerCombatStats: {fileID: 11400000, guid: eac04cac25aeaba42aa5af02fd468c8e, type: 2}
 --- !u!1001 &5647692114975480855
 PrefabInstance:
   m_ObjectHideFlags: 0

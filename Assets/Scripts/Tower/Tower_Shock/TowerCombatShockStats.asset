@@ -12,6 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac8e4f8555dad004ca62daa2489c06be, type: 3}
   m_Name: TowerCombatShockStats
   m_EditorClassIdentifier: Assembly-CSharp::TowerCombatBounceStats
+  towerType: 5
+  towerIcon: {fileID: 21300000, guid: 2c677c592596192468a512d7e0150b83, type: 3}
+  towerDescription: Bzzzz Bzzzzzzz Bzz
+  iconColor: {r: 0.5568628, g: 0, b: 0.85882354, a: 1}
+  currencyType: 0
+  cost: 3
+  prefab: {fileID: 7769113742148241669, guid: 4eda70237c64b1843ae3a9aaf23d7aab, type: 3}
+  ghostPrefab: {fileID: 2216227770907487669, guid: fd589fd74a14ad741a9d8c7419b85a7e, type: 3}
   currentLevel: 1
   maxLevel: 10
   upgradeCurrencyType: 4
@@ -22,13 +30,13 @@ MonoBehaviour:
   attackRange: 3.5
   attackSpeed: 2
   attackDamage: 8
-  levelUpRangeScaling: 1.2
+  levelUpRangeScaling: 1.05
   levelUpAttackScaling: 1.15
   levelUpSpeedScaling: 0.95
   targetAmount: 1
   attackPattern: 0
   attackTargetTypes: 8
   shotType: 3
-  shotSpeed: 3
+  shotSpeed: 5
   bounceAmount: 3
   bounceRange: 2

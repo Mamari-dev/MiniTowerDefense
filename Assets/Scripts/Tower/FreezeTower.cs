@@ -20,7 +20,7 @@ public class FreezeTower : TowerCombatShooting
             && shot.TryGetComponent(out IBulletSlowShot bulletFreezeShot))
         {
             bulletShot.SetBulletValues(towerRunTimeCombatStats.damageType, towerRunTimeCombatStats.attackDamage, enemy, towerRunTimeCombatStats.shotSpeed);
-
+            
             bulletFreezeShot.Slow(freezeStats.slowStrength, freezeStats.slowDuration);
         }
 
